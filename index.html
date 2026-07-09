@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Mapa de Economía — prerrequisitos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Archivo:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<style>
+:root{
+  --ink:#0d1a1f; --ink-2:#122a30; --ink-3:#0a1418;
+  --paper:#ece2cc; --paper-dim:#8fa3a1; --paper-faint:#5f7573;
+  --line:#26424a; --line-soft:#1b3138;
+  --gold:#e6c968; --accent:#f4e6b4;
+  --s-fund:#d8b34a; --s-micro:#54aaa0; --s-macro:#cd6a41;
+  --s-fin:#7f9ede; --s-poli:#b878ac; --s-comp:#d99a52;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--ink); color:var(--paper);
+  font-family:"Archivo",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased; overflow:hidden;
+}
+a{color:inherit}
+
+/* ---------- header ---------- */
+header{
+  position:relative; z-index:20;
+  padding:16px 22px 12px; border-bottom:1px solid var(--line-soft);
+  background:linear-gradient(180deg, var(--ink-3), var(--ink));
+  display:flex; align-items:flex-end; gap:24px; flex-wrap:wrap;
+}
+.brand .eyebrow{
+  font-family:"Space Mono",monospace; font-size:10.5px; letter-spacing:.32em;
+  text-transform:uppercase; color:var(--paper-dim); margin:0 0 3px;
+}
+.brand h1{
+  font-family:"Fraunces",serif; font-weight:500; font-size:30px;
+  line-height:.95; margin:0; letter-spacing:-.01em;
+}
+.brand h1 em{font-style:italic; color:var(--gold)}
+.brand .sub{font-size:12.5px; color:var(--paper-dim); margin:5px 0 0; max-width:52ch}
+.controls{margin-left:auto; display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.search{
+  display:flex; align-items:center; gap:7px; background:var(--ink-2);
+  border:1px solid var(--line); border-radius:10px; padding:7px 11px; min-width:190px;
+}
+.search svg{opacity:.6; flex:none}
+.search input{
+  background:none; border:none; color:var(--paper); font-family:inherit;
+  font-size:13px; width:100%; outline:none;
+}
+.search input::placeholder{color:var(--paper-faint)}
+.modes{display:flex; background:var(--ink-2); border:1px solid var(--line); border-radius:10px; padding:3px}
+.modes button{
+  font-family:inherit; font-size:12px; color:var(--paper-dim); background:none;
+  border:none; padding:6px 12px; border-radius:7px; cursor:pointer; white-space:nowrap;
+}
+.modes button.on{background:var(--gold); color:#20180a; font-weight:600}
+.modes button:not(.on):hover{color:var(--paper)}
+
+/* ---------- legend ---------- */
+.legend{
+  position:absolute; top:calc(var(--hdr,96px)); left:0; right:0; z-index:15;
+  padding:9px 22px; display:flex; gap:8px 14px; align-items:center; flex-wrap:wrap;
+  background:linear-gradient(180deg, rgba(13,26,31,.92), rgba(13,26,31,0));
+  pointer-events:none;
+}
+.chip{
+  pointer-events:auto; cursor:pointer; display:inline-flex; align-items:center; gap:7px;
+  font-size:12px; color:var(--paper-dim); padding:4px 9px 4px 4px; border-radius:20px;
+  border:1px solid transparent; transition:.15s;
+}
+.chip .dot{width:11px; height:11px; border-radius:50%; flex:none}
+.chip.off{opacity:.34}
+.chip:hover{border-color:var(--line); color:var(--paper)}
+.legend .spacer{flex:1 1 40px}
+.tier-key{
+  pointer-events:auto; display:flex; align-items:center; gap:8px;
+  font-family:"Space Mono",monospace; font-size:10px; letter-spacing:.05em;
+  color:var(--paper-faint);
+}
+.tier-key .bar{
+  width:76px; height:7px; border-radius:4px;
+  background:linear-gradient(90deg,#3a5b56,#e6c968);
+}
+
+/* ---------- graph ---------- */
+#stage{position:absolute; inset:0; z-index:5}
+#graph{width:100%; height:100%; display:block; cursor:grab}
+#graph.grabbing{cursor:grabbing}
+.link{stroke:var(--line); fill:none}
+.link.soft{stroke-dasharray:2 4}
+.node circle{stroke:var(--ink); stroke-width:1.5px; cursor:pointer; transition:stroke .15s, opacity .15s}
+.node text{
+  font-family:"Archivo",sans-serif; font-size:10.5px; fill:var(--paper);
+  paint-order:stroke; stroke:var(--ink); stroke-width:3px; stroke-linejoin:round;
+  pointer-events:none; opacity:0; transition:opacity .15s;
+}
+.node.show-label text{opacity:1}
+.node.dim{opacity:.12}
+.node.route-on circle{stroke:var(--accent); stroke-width:2.4px}
+.hint{
+  position:absolute; left:50%; bottom:20px; transform:translateX(-50%); z-index:8;
+  font-size:12px; color:var(--paper-faint); background:rgba(10,20,24,.72);
+  border:1px solid var(--line-soft); padding:6px 14px; border-radius:20px;
+  pointer-events:none; text-align:center; transition:opacity .3s;
+}
+
+/* ---------- detail / route panel ---------- */
+#panel{
+  position:absolute; top:0; right:0; bottom:0; width:min(380px,88vw); z-index:25;
+  background:linear-gradient(180deg,var(--ink-2),var(--ink-3));
+  border-left:1px solid var(--line); transform:translateX(102%);
+  transition:transform .32s cubic-bezier(.2,.7,.2,1); overflow-y:auto;
+  padding:20px 20px 40px;
+}
+#panel.open{transform:none}
+.pclose{
+  position:absolute; top:14px; right:14px; width:30px; height:30px; border-radius:8px;
+  background:var(--ink); border:1px solid var(--line); color:var(--paper-dim);
+  cursor:pointer; font-size:16px; line-height:1; display:grid; place-items:center;
+}
+.pclose:hover{color:var(--paper)}
+.p-subject{font-family:"Space Mono",monospace; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; display:inline-flex; align-items:center; gap:7px}
+.p-subject .dot{width:9px;height:9px;border-radius:50%}
+.p-title{font-family:"Fraunces",serif; font-weight:500; font-size:23px; line-height:1.08; margin:10px 0 12px}
+.p-meta{display:flex; gap:7px; flex-wrap:wrap; margin-bottom:14px}
+.tag{
+  font-family:"Space Mono",monospace; font-size:10px; letter-spacing:.04em;
+  border:1px solid var(--line); color:var(--paper-dim); padding:3px 8px; border-radius:6px;
+}
+.tag.tier{color:var(--gold); border-color:#54432099}
+.p-desc{font-size:14px; line-height:1.55; color:#dcd4c0; margin:0 0 18px}
+.p-master{
+  font-size:12.5px; line-height:1.5; color:var(--paper-dim);
+  border-left:2px solid var(--gold); padding:3px 0 3px 12px; margin:0 0 20px;
+}
+.p-master b{color:var(--paper); font-weight:600; display:block; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:3px; font-family:"Space Mono",monospace}
+.p-sec h4{
+  font-family:"Space Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--paper-faint); margin:0 0 8px; display:flex; align-items:center; gap:8px;
+}
+.p-sec h4::after{content:""; flex:1; height:1px; background:var(--line-soft)}
+.p-sec{margin-bottom:18px}
+.rel{
+  display:flex; align-items:center; gap:9px; padding:7px 9px; border-radius:9px;
+  cursor:pointer; font-size:13px; color:#d7cfbb; border:1px solid transparent;
+}
+.rel:hover{background:var(--ink); border-color:var(--line)}
+.rel .dot{width:9px; height:9px; border-radius:50%; flex:none}
+.rel .k{font-family:"Space Mono",monospace; font-size:9px; color:var(--paper-faint); margin-left:auto; letter-spacing:.05em}
+.empty{font-size:12.5px; color:var(--paper-faint); font-style:italic}
+
+/* route list */
+.route-head{margin-bottom:6px}
+.route-head .p-subject{margin-bottom:8px}
+.route-lead{font-size:13px; color:var(--paper-dim); line-height:1.5; margin:0 0 18px}
+.route-lead b{color:var(--paper)}
+.step{
+  display:flex; gap:11px; padding:9px 8px; border-radius:9px; cursor:pointer;
+  border:1px solid transparent; align-items:baseline;
+}
+.step:hover{background:var(--ink); border-color:var(--line)}
+.step .n{
+  font-family:"Space Mono",monospace; font-size:11px; color:var(--ink);
+  background:var(--gold); min-width:22px; height:22px; border-radius:6px;
+  display:grid; place-items:center; flex:none; font-weight:700; transform:translateY(2px);
+}
+.step.target .n{background:var(--accent)}
+.step .body .t{font-size:13.5px; color:var(--paper); line-height:1.2}
+.step .body .m{font-family:"Space Mono",monospace; font-size:9.5px; color:var(--paper-faint); margin-top:3px; display:flex; gap:8px; align-items:center}
+.step .body .m .dot{width:7px;height:7px;border-radius:50%}
+
+@media (max-width:640px){
+  header{padding:12px 15px 10px; gap:12px}
+  .brand h1{font-size:24px}
+  .controls{width:100%; margin-left:0}
+  .search{flex:1; min-width:0}
+  .legend{padding:8px 15px}
+  #panel{width:100%; top:auto; height:74vh; border-left:none; border-top:1px solid var(--line);
+    border-radius:18px 18px 0 0; transform:translateY(102%)}
+  #panel.open{transform:none}
+  .hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  #panel{transition:none}
+  *{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <p class="eyebrow">Mapa de prerrequisitos · nivel introductorio</p>
+    <h1>La economía como <em>terreno</em></h1>
+    <p class="sub">69 conceptos conectados por lo que hay que dominar antes. La altura marca la dificultad: fundamentos abajo, cimas arriba.</p>
+  </div>
+  <div class="controls">
+    <label class="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="search" type="search" placeholder="Buscar concepto…" autocomplete="off">
+    </label>
+    <div class="modes" role="tablist">
+      <button id="mExplore" class="on" role="tab">Explorar</button>
+      <button id="mRoute" role="tab">Trazá tu ruta</button>
+    </div>
+  </div>
+</header>
+
+<div class="legend" id="legend"></div>
+
+<div id="stage">
+  <svg id="graph"></svg>
+  <div class="hint" id="hint">Pasá el mouse para ver conexiones · tocá un concepto para abrirlo</div>
+</div>
+
+<aside id="panel" aria-live="polite"></aside>
+
+<script>
+const DATA = {"meta": {"name": "Taxonomía de Economía", "version": "0.1", "level": "introductorio / conceptual", "language": "es", "inspired_by": "withmarbleapp/os-taxonomy", "description": "Grafo de prerrequisitos de conceptos económicos: micro, macro, finanzas, economía política e historia, y comportamiento."}, "topics": [{"id": "escasez", "title": "Escasez y costo de oportunidad", "description": "Los recursos son limitados y los deseos no; por eso toda elección implica renunciar a la mejor alternativa. El costo de algo es lo que dejás de lado para obtenerlo.", "subject": "Fundamentos", "tier": 1, "type": "conceptual", "mastery": "Podés expresar el costo real de una decisión como su mejor alternativa sacrificada, no como su precio monetario."}, {"id": "trade_offs", "title": "Trade-offs y elección", "description": "Ninguna decisión es gratis: elegir más de algo suele significar menos de otra cosa. La frontera de posibilidades de producción hace visible ese límite.", "subject": "Fundamentos", "tier": 1, "type": "representacional", "mastery": "Sabés leer una frontera de posibilidades y explicar por qué los puntos interiores son ineficientes."}, {"id": "incentivos", "title": "Incentivos", "description": "La gente responde a incentivos: cambios en costos y beneficios modifican el comportamiento, a veces de formas no buscadas. Casi todo análisis económico empieza preguntando '¿qué incentivos crea esto?'.", "subject": "Fundamentos", "tier": 1, "type": "conceptual", "mastery": "Ante una política o regla, podés anticipar respuestas de comportamiento, incluidas las no intencionadas."}, {"id": "pensamiento_marginal", "title": "Pensamiento marginal", "description": "Las buenas decisiones se toman en el margen: comparás el beneficio de una unidad adicional contra su costo adicional, no los totales. 'Una más' es la pregunta correcta.", "subject": "Fundamentos", "tier": 1, "type": "conceptual", "mastery": "Podés decidir un óptimo comparando beneficio marginal con costo marginal en vez de promedios o totales."}, {"id": "modelos_supuestos", "title": "Modelos y supuestos", "description": "La economía razona con modelos: simplificaciones deliberadas de la realidad. Un modelo es útil si sus supuestos capturan lo esencial del problema, no por ser realista en todo.", "subject": "Fundamentos", "tier": 1, "type": "meta", "mastery": "Podés evaluar un modelo por la utilidad de sus supuestos frente a la pregunta, no por su realismo literal."}, {"id": "positivo_normativo", "title": "Positivo vs. normativo", "description": "Distinción entre lo que es (afirmaciones descriptivas, verificables) y lo que debería ser (juicios de valor). Confundirlas es la fuente número uno de discusiones económicas estériles.", "subject": "Fundamentos", "tier": 1, "type": "lenguaje", "mastery": "Podés clasificar una afirmación como positiva o normativa y detectar cuándo un juicio de valor se disfraza de dato."}, {"id": "ceteris_paribus", "title": "Ceteris paribus", "description": "'Todo lo demás constante': el recurso para aislar el efecto de una variable manteniendo las otras fijas. Sin él, no se puede razonar sobre causas en un sistema con mil cosas moviéndose.", "subject": "Fundamentos", "tier": 1, "type": "lenguaje", "mastery": "Sabés cuándo un argumento depende del supuesto ceteris paribus y qué pasa cuando ese supuesto se rompe."}, {"id": "intercambio_ganancias", "title": "Intercambio y ganancias del comercio", "description": "El comercio voluntario deja mejor a ambas partes: cada una valora lo que recibe más que lo que entrega. La riqueza no es un juego de suma cero.", "subject": "Fundamentos", "tier": 2, "type": "conceptual", "mastery": "Podés explicar por qué un intercambio voluntario genera valor sin que nadie pierda."}, {"id": "eficiencia_equidad", "title": "Eficiencia vs. equidad", "description": "Eficiencia es hacer la torta lo más grande posible; equidad es cómo se reparte. Muchas discusiones de política son en realidad sobre el trade-off entre ambas.", "subject": "Fundamentos", "tier": 2, "type": "conceptual", "mastery": "Podés separar el argumento de eficiencia del de equidad en un debate de política pública."}, {"id": "oferta_demanda", "title": "Oferta y demanda", "description": "El modelo central de la micro: cuánto quieren comprar los demandantes y vender los oferentes a cada precio. La demanda baja con el precio; la oferta sube.", "subject": "Microeconomía", "tier": 2, "type": "representacional", "mastery": "Podés graficar oferta y demanda y explicar por qué cada curva tiene su pendiente."}, {"id": "equilibrio_mercado", "title": "Equilibrio y formación del precio", "description": "El precio de equilibrio iguala cantidad ofrecida y demandada. Fuera de él aparecen faltantes o excedentes que empujan el precio de vuelta.", "subject": "Microeconomía", "tier": 2, "type": "conceptual", "mastery": "Dado un desplazamiento de oferta o demanda, podés predecir la dirección del cambio en precio y cantidad."}, {"id": "elasticidad", "title": "Elasticidad", "description": "Mide cuánto responde una cantidad a un cambio en precio, ingreso o el precio de otro bien. Explica por qué subir precios a veces aumenta y a veces reduce los ingresos.", "subject": "Microeconomía", "tier": 3, "type": "conceptual", "mastery": "Podés predecir el efecto de un cambio de precio sobre el ingreso total según la elasticidad de la demanda."}, {"id": "excedente", "title": "Excedente del consumidor y del productor", "description": "El valor que capturan compradores (lo que hubieran pagado menos lo que pagaron) y vendedores (lo cobrado menos su costo). Es la medida estándar del bienestar en un mercado.", "subject": "Microeconomía", "tier": 3, "type": "representacional", "mastery": "Sabés identificar en un gráfico las áreas de excedente y cómo cambian al mover el precio."}, {"id": "utilidad", "title": "Utilidad y utilidad marginal decreciente", "description": "La satisfacción que da consumir; cada unidad adicional suele dar menos que la anterior. Fundamenta por qué la demanda tiene pendiente negativa.", "subject": "Microeconomía", "tier": 3, "type": "conceptual", "mastery": "Podés vincular la utilidad marginal decreciente con la forma de la curva de demanda."}, {"id": "restriccion_presupuestaria", "title": "Restricción presupuestaria", "description": "Las combinaciones de bienes que un consumidor puede pagar dado su ingreso y los precios. Es el límite dentro del cual se optimiza.", "subject": "Microeconomía", "tier": 3, "type": "representacional", "mastery": "Podés dibujar una restricción presupuestaria y ver cómo la mueven cambios de ingreso o de precios."}, {"id": "teoria_consumidor", "title": "Teoría del consumidor", "description": "Cómo el consumidor elige la canasta que maximiza su utilidad dentro de su presupuesto, usando curvas de indiferencia. De ahí se deriva la demanda individual.", "subject": "Microeconomía", "tier": 4, "type": "representacional", "mastery": "Podés explicar la elección óptima como la tangencia entre curva de indiferencia y restricción presupuestaria."}, {"id": "produccion_costos", "title": "Producción y costos", "description": "Cómo las empresas transforman insumos en producto y qué estructura de costos enfrentan: fijos, variables, medios y marginales.", "subject": "Microeconomía", "tier": 3, "type": "conceptual", "mastery": "Podés distinguir costos fijos, variables y marginales y explicar por qué la decisión de producir depende del marginal."}, {"id": "rendimientos", "title": "Rendimientos y economías de escala", "description": "Al agregar insumos, el producto extra suele decrecer (rendimientos decrecientes); pero escalar toda la producción puede abaratar el costo unitario (economías de escala).", "subject": "Microeconomía", "tier": 4, "type": "conceptual", "mastery": "Podés diferenciar rendimientos decrecientes de economías de escala y sus efectos sobre los costos."}, {"id": "competencia_perfecta", "title": "Competencia perfecta", "description": "Muchos oferentes idénticos, sin poder de precio: cada empresa toma el precio del mercado y produce donde precio = costo marginal. El punto de referencia teórico.", "subject": "Microeconomía", "tier": 4, "type": "conceptual", "mastery": "Podés explicar por qué en competencia perfecta el precio iguala al costo marginal y el beneficio económico tiende a cero."}, {"id": "monopolio", "title": "Monopolio", "description": "Un único oferente con poder de precio: produce menos y cobra más que en competencia, generando ineficiencia. Muestra por qué el poder de mercado importa.", "subject": "Microeconomía", "tier": 4, "type": "conceptual", "mastery": "Podés explicar cómo el monopolista fija precio restringiendo cantidad y por qué eso reduce el bienestar."}, {"id": "oligopolio", "title": "Oligopolio y competencia monopolística", "description": "Estructuras intermedias: pocos actores estratégicos (oligopolio) o muchos con productos diferenciados (competencia monopolística). Aquí la interdependencia es clave.", "subject": "Microeconomía", "tier": 4, "type": "conceptual", "mastery": "Podés ubicar un mercado real en el espectro entre competencia perfecta y monopolio."}, {"id": "teoria_juegos", "title": "Teoría de juegos", "description": "El análisis de decisiones interdependientes, donde lo mejor para vos depende de lo que hagan los demás. El equilibrio de Nash y el dilema del prisionero son sus piezas básicas.", "subject": "Microeconomía", "tier": 4, "type": "conceptual", "mastery": "Podés encontrar el equilibrio de Nash en un juego simple y explicar por qué el resultado puede ser peor para todos."}, {"id": "externalidades", "title": "Externalidades", "description": "Costos o beneficios que recaen sobre terceros no involucrados en la transacción (contaminación, vacunas). El mercado por sí solo produce demasiado de lo malo y poco de lo bueno.", "subject": "Microeconomía", "tier": 3, "type": "conceptual", "mastery": "Podés identificar una externalidad y explicar por qué distorsiona la cantidad de equilibrio."}, {"id": "bienes_publicos", "title": "Bienes públicos y del común", "description": "Bienes no rivales y/o no excluibles (defensa, un faro, la pesca en alta mar). El mercado los subprovee porque nadie puede cobrar por ellos o todos los sobreexplotan.", "subject": "Microeconomía", "tier": 4, "type": "conceptual", "mastery": "Podés clasificar un bien según rivalidad y exclusión y anticipar el problema de free-rider."}, {"id": "asimetria_info", "title": "Asimetría de información", "description": "Cuando una parte sabe más que la otra: selección adversa (mercado de autos usados) y riesgo moral (seguros). Puede hacer colapsar mercados enteros.", "subject": "Microeconomía", "tier": 4, "type": "conceptual", "mastery": "Podés distinguir selección adversa de riesgo moral con ejemplos."}, {"id": "fallas_mercado", "title": "Fallas de mercado", "description": "Situaciones donde el mercado libre no logra el resultado eficiente: externalidades, bienes públicos, poder de mercado, información asimétrica. La justificación económica de la intervención.", "subject": "Microeconomía", "tier": 4, "type": "conceptual", "mastery": "Podés nombrar los cuatro tipos principales de falla de mercado y dar un ejemplo de cada uno."}, {"id": "peso_muerto", "title": "Pérdida de peso muerto", "description": "El bienestar que se destruye —no se transfiere, se pierde— cuando el mercado no opera en su cantidad eficiente, por impuestos, monopolio o controles.", "subject": "Microeconomía", "tier": 4, "type": "representacional", "mastery": "Sabés identificar el triángulo de peso muerto en un gráfico y qué lo genera."}, {"id": "controles_precios", "title": "Controles de precios", "description": "Techos (alquileres) y pisos (salario mínimo) fijados por el Estado. Generan faltantes o excedentes y sus efectos secundarios suelen dominar los buscados.", "subject": "Microeconomía", "tier": 3, "type": "conceptual", "mastery": "Podés predecir faltante o excedente según el control esté por debajo o encima del equilibrio."}, {"id": "impuestos_incidencia", "title": "Impuestos, subsidios e incidencia", "description": "Quién paga realmente un impuesto no depende de a quién se le cobra, sino de las elasticidades. La incidencia recae más en el lado menos elástico.", "subject": "Microeconomía", "tier": 4, "type": "conceptual", "mastery": "Podés determinar quién soporta la mayor parte de un impuesto a partir de las elasticidades."}, {"id": "mercado_laboral", "title": "Mercado laboral", "description": "La oferta y demanda de trabajo determinan salario y empleo. Aparecen matices: capital humano, poder de negociación, salario mínimo, fricciones de búsqueda.", "subject": "Microeconomía", "tier": 4, "type": "conceptual", "mastery": "Podés aplicar oferta y demanda al trabajo y explicar por qué el salario no siempre iguala la productividad marginal."}, {"id": "pib", "title": "PIB y cuentas nacionales", "description": "El valor de todo lo producido en una economía en un período. La forma de medir el tamaño y crecimiento de un país, con sus limitaciones (no mide bienestar).", "subject": "Macroeconomía", "tier": 2, "type": "conceptual", "mastery": "Podés explicar qué incluye y qué deja afuera el PIB y por qué no equivale a bienestar."}, {"id": "inflacion", "title": "Inflación e índices de precios", "description": "El aumento sostenido del nivel general de precios, medido con índices como el IPC. Erosiona el poder de compra y distorsiona decisiones cuando es alta o volátil.", "subject": "Macroeconomía", "tier": 3, "type": "conceptual", "mastery": "Podés distinguir un cambio de precios relativos de una inflación generalizada."}, {"id": "desempleo", "title": "Desempleo", "description": "La proporción de quienes buscan trabajo y no lo encuentran. Tiene componentes friccional, estructural y cíclico, con causas y remedios distintos.", "subject": "Macroeconomía", "tier": 3, "type": "conceptual", "mastery": "Podés distinguir desempleo friccional, estructural y cíclico."}, {"id": "ciclo_economico", "title": "Ciclo económico", "description": "La economía se expande y se contrae en oleadas: auge, recesión, recuperación. Entender el ciclo es entender por qué el desempleo y la inflación se mueven juntos.", "subject": "Macroeconomía", "tier": 3, "type": "conceptual", "mastery": "Podés ubicar dónde está una economía en el ciclo a partir de crecimiento, empleo e inflación."}, {"id": "oferta_demanda_agregada", "title": "Oferta y demanda agregada", "description": "La versión macro del modelo de oferta y demanda: relaciona el nivel de precios con la producción total. El marco para pensar shocks y políticas de estabilización.", "subject": "Macroeconomía", "tier": 4, "type": "representacional", "mastery": "Podés analizar un shock (de demanda o de oferta) con el modelo OA-DA y anticipar su efecto sobre precios y producto."}, {"id": "dinero_bancos", "title": "Dinero y sistema bancario", "description": "Qué es el dinero, qué funciones cumple y cómo los bancos lo multiplican mediante el crédito. La base para entender la política monetaria.", "subject": "Macroeconomía", "tier": 3, "type": "conceptual", "mastery": "Podés explicar cómo el sistema bancario crea dinero a partir de reservas."}, {"id": "tasas_interes", "title": "Tasas de interés", "description": "El precio del dinero en el tiempo. Coordinan ahorro e inversión y son la principal palanca de la política monetaria. Distinguir nominal de real es esencial.", "subject": "Macroeconomía", "tier": 3, "type": "conceptual", "mastery": "Podés diferenciar tasa nominal de real y explicar por qué la real es la que guía decisiones."}, {"id": "banco_central", "title": "Banco central y política monetaria", "description": "La institución que gestiona la cantidad de dinero y las tasas para estabilizar precios y actividad. Sus herramientas y su independencia son temas centrales.", "subject": "Macroeconomía", "tier": 4, "type": "conceptual", "mastery": "Podés explicar cómo el banco central usa la tasa de interés para influir sobre inflación y actividad."}, {"id": "politica_fiscal", "title": "Política fiscal", "description": "El uso del gasto público y los impuestos para influir sobre la economía. Incluye déficit, deuda y el debate sobre multiplicadores y sostenibilidad.", "subject": "Macroeconomía", "tier": 4, "type": "conceptual", "mastery": "Podés explicar cómo gasto e impuestos afectan la demanda agregada y qué es un déficit sostenible."}, {"id": "is_lm", "title": "Modelo IS-LM (intuición)", "description": "Un marco que junta el mercado de bienes (IS) y el de dinero (LM) para mostrar cómo interactúan política fiscal y monetaria sobre tasa y producto.", "subject": "Macroeconomía", "tier": 5, "type": "representacional", "mastery": "Podés explicar cualitativamente cómo un cambio fiscal o monetario mueve el equilibrio IS-LM."}, {"id": "curva_phillips", "title": "Curva de Phillips", "description": "La relación (inestable) entre inflación y desempleo. Su historia —y su ruptura en los 70— enseña por qué las expectativas cambian las reglas del juego.", "subject": "Macroeconomía", "tier": 5, "type": "conceptual", "mastery": "Podés explicar por qué el trade-off inflación-desempleo se desvanece cuando cambian las expectativas."}, {"id": "crecimiento", "title": "Crecimiento económico", "description": "Qué hace que un país sea más rico con el tiempo: acumulación de capital, trabajo y sobre todo productividad. El determinante último del nivel de vida.", "subject": "Macroeconomía", "tier": 5, "type": "conceptual", "mastery": "Podés explicar por qué la productividad, no el capital solo, domina el crecimiento de largo plazo."}, {"id": "tipo_cambio", "title": "Tipo de cambio", "description": "El precio de una moneda en términos de otra. Regímenes fijo vs. flotante, y cómo el tipo de cambio conecta la economía con el resto del mundo.", "subject": "Macroeconomía", "tier": 4, "type": "conceptual", "mastery": "Podés explicar cómo un movimiento del tipo de cambio afecta exportaciones, importaciones e inflación."}, {"id": "balanza_pagos", "title": "Balanza de pagos", "description": "El registro de todas las transacciones de un país con el exterior: cuenta corriente y cuenta capital. Explica de dónde salen y a dónde van los dólares.", "subject": "Macroeconomía", "tier": 4, "type": "conceptual", "mastery": "Podés explicar por qué un déficit de cuenta corriente se financia con entrada de capital."}, {"id": "ventaja_comparativa", "title": "Ventaja comparativa", "description": "Un país gana especializándose en lo que produce con menor costo de oportunidad, aunque sea peor en todo. El argumento fundacional a favor del comercio.", "subject": "Macroeconomía", "tier": 3, "type": "conceptual", "mastery": "Podés mostrar con costos de oportunidad por qué dos países ganan comerciando aunque uno sea más productivo en todo."}, {"id": "expectativas", "title": "Expectativas", "description": "Lo que la gente cree que va a pasar cambia lo que pasa: expectativas adaptativas vs. racionales. Explican por qué anunciar una política puede alterar su efecto.", "subject": "Macroeconomía", "tier": 5, "type": "conceptual", "mastery": "Podés explicar cómo las expectativas racionales limitan la efectividad de políticas anticipadas."}, {"id": "hiperinflacion", "title": "Hiperinflación y dominancia fiscal", "description": "Cuando el déficit se financia con emisión de forma persistente, los precios pueden desbocarse. La dinámica que Argentina conoce de cerca: la moneda pierde sus funciones.", "subject": "Macroeconomía", "tier": 5, "type": "conceptual", "mastery": "Podés explicar el vínculo entre déficit fiscal financiado con emisión y aceleración inflacionaria."}, {"id": "valor_tiempo_dinero", "title": "Valor tiempo del dinero", "description": "Un peso hoy vale más que un peso mañana, porque puede invertirse y por la incertidumbre. La idea que subyace a toda valuación financiera.", "subject": "Finanzas", "tier": 3, "type": "conceptual", "mastery": "Podés justificar por qué flujos en distintos momentos no son comparables sin descontar."}, {"id": "valor_presente", "title": "Valor presente y descuento", "description": "Traer flujos futuros al presente dividiéndolos por una tasa. Permite comparar y sumar cobros y pagos que ocurren en momentos distintos.", "subject": "Finanzas", "tier": 3, "type": "procedimental", "mastery": "Podés calcular el valor presente de un flujo futuro dada una tasa de descuento."}, {"id": "riesgo_retorno", "title": "Riesgo y retorno", "description": "Mayor retorno esperado suele venir con mayor riesgo; nadie regala rendimiento. El eje sobre el que gira toda decisión de inversión.", "subject": "Finanzas", "tier": 4, "type": "conceptual", "mastery": "Podés explicar por qué activos más riesgosos exigen mayor retorno esperado."}, {"id": "diversificacion", "title": "Diversificación", "description": "Combinar activos poco correlacionados reduce el riesgo sin sacrificar (tanto) retorno. El único 'almuerzo gratis' de las finanzas.", "subject": "Finanzas", "tier": 4, "type": "conceptual", "mastery": "Podés explicar por qué la correlación, no solo la volatilidad individual, determina el riesgo de una cartera."}, {"id": "bonos_rendimiento", "title": "Bonos y rendimiento", "description": "Instrumentos de deuda con flujos conocidos. Precio y rendimiento se mueven en sentido opuesto; la curva de tasas resume expectativas y riesgo.", "subject": "Finanzas", "tier": 4, "type": "conceptual", "mastery": "Podés explicar por qué el precio de un bono cae cuando suben las tasas."}, {"id": "valuacion_acciones", "title": "Valuación de acciones", "description": "El valor de una acción como el valor presente de sus flujos futuros esperados (dividendos, ganancias). Une finanzas con expectativas y crecimiento.", "subject": "Finanzas", "tier": 4, "type": "conceptual", "mastery": "Podés explicar por qué el precio de una acción refleja expectativas de flujos futuros descontados."}, {"id": "arbitraje", "title": "Arbitraje y ley de un precio", "description": "Si el mismo activo cotiza a dos precios, hay ganancia sin riesgo hasta que los precios convergen. El mecanismo que disciplina los mercados.", "subject": "Finanzas", "tier": 4, "type": "conceptual", "mastery": "Podés reconocer una oportunidad de arbitraje y explicar por qué tiende a desaparecer."}, {"id": "mercados_eficientes", "title": "Hipótesis de mercados eficientes", "description": "Si los precios ya reflejan toda la información disponible, es muy difícil ganarle al mercado de forma consistente. Discutida, pero indispensable como punto de partida.", "subject": "Finanzas", "tier": 5, "type": "conceptual", "mastery": "Podés explicar las tres formas de eficiencia y qué implican para las estrategias activas."}, {"id": "capm", "title": "CAPM (intuición)", "description": "Un modelo que vincula el retorno esperado de un activo con su riesgo no diversificable (beta). Formaliza la idea de que solo el riesgo que no podés diversificar se paga.", "subject": "Finanzas", "tier": 5, "type": "conceptual", "mastery": "Podés explicar por qué el CAPM premia el riesgo sistemático y no el idiosincrático."}, {"id": "opciones_derivados", "title": "Opciones y derivados", "description": "Contratos cuyo valor deriva de otro activo. Las opciones dan el derecho —no la obligación— de comprar o vender, y permiten construir pagos no lineales.", "subject": "Finanzas", "tier": 5, "type": "conceptual", "mastery": "Podés dibujar el pago de un call y un put y explicar por qué el valor depende de la volatilidad."}, {"id": "mano_invisible", "title": "Mano invisible y orden espontáneo", "description": "La idea de Smith de que individuos persiguiendo su interés pueden producir un orden coordinado que nadie diseñó. El punto de partida del pensamiento de mercado.", "subject": "Política e Historia", "tier": 3, "type": "conceptual", "mastery": "Podés explicar cómo precios descentralizados coordinan la actividad sin un planificador central."}, {"id": "escuelas_pensamiento", "title": "Escuelas de pensamiento", "description": "Clásica, keynesiana, monetarista, austríaca, neoclásica: distintas respuestas a cómo funciona la economía y qué debe hacer el Estado. El mapa de los grandes debates.", "subject": "Política e Historia", "tier": 4, "type": "conceptual", "mastery": "Podés ubicar a keynesianos, monetaristas y austríacos según su visión del rol del Estado y del dinero."}, {"id": "instituciones", "title": "Instituciones y derechos de propiedad", "description": "Las reglas del juego —derechos de propiedad, contratos, Estado de derecho— explican buena parte de por qué unos países prosperan y otros no.", "subject": "Política e Historia", "tier": 4, "type": "conceptual", "mastery": "Podés argumentar por qué instituciones seguras de propiedad favorecen la inversión y el crecimiento."}, {"id": "eleccion_publica", "title": "Teoría de la elección pública", "description": "Aplica el análisis económico a la política: votantes, burócratas y políticos también responden a incentivos. Desmitifica la idea del Estado como planificador benévolo.", "subject": "Política e Historia", "tier": 5, "type": "conceptual", "mastery": "Podés explicar por qué grupos concentrados suelen imponerse sobre mayorías difusas en política."}, {"id": "desigualdad", "title": "Desigualdad y distribución", "description": "Cómo se reparten ingreso y riqueza, cómo se mide (Gini) y por qué importa. Cruce entre eficiencia, equidad y política.", "subject": "Política e Historia", "tier": 4, "type": "conceptual", "mastery": "Podés interpretar un coeficiente de Gini y distinguir desigualdad de ingreso de la de riqueza."}, {"id": "desarrollo", "title": "Economía del desarrollo", "description": "Por qué algunos países siguen siendo pobres y qué los saca de ahí: instituciones, capital humano, geografía, trampas de pobreza. El problema más importante de la economía.", "subject": "Política e Historia", "tier": 5, "type": "conceptual", "mastery": "Podés nombrar varias explicaciones en competencia sobre por qué unos países crecen y otros no."}, {"id": "gran_depresion", "title": "La Gran Depresión", "description": "El colapso de los años 30 que reformuló la macroeconomía y dio origen a la síntesis keynesiana. El caso que enseña qué pasa cuando la demanda se derrumba.", "subject": "Política e Historia", "tier": 4, "type": "conceptual", "mastery": "Podés explicar por qué la Depresión impulsó el enfoque keynesiano de gestión de la demanda."}, {"id": "estanflacion", "title": "Estanflación de los 70", "description": "Inflación alta con estancamiento y desempleo: el fenómeno que rompió la curva de Phillips ingenua y abrió paso al monetarismo y a las expectativas racionales.", "subject": "Política e Historia", "tier": 5, "type": "conceptual", "mastery": "Podés explicar por qué la estanflación desafió la idea de un trade-off estable inflación-desempleo."}, {"id": "crisis_2008", "title": "Crisis financiera de 2008", "description": "El colapso financiero originado en el crédito hipotecario y el apalancamiento. Caso de estudio de riesgo sistémico, incentivos perversos y regulación.", "subject": "Política e Historia", "tier": 5, "type": "conceptual", "mastery": "Podés trazar la cadena desde hipotecas subprime hasta riesgo sistémico y rescate."}, {"id": "racionalidad_limitada", "title": "Racionalidad limitada", "description": "En la práctica no optimizamos perfectamente: la información, el tiempo y la capacidad de cómputo son limitados. Punto de partida de la economía del comportamiento.", "subject": "Comportamiento", "tier": 4, "type": "conceptual", "mastery": "Podés contrastar el agente racional idealizado con uno de racionalidad limitada."}, {"id": "heuristicas_sesgos", "title": "Heurísticas y sesgos", "description": "Atajos mentales útiles que también producen errores sistemáticos: anclaje, disponibilidad, exceso de confianza. Explican desvíos predecibles del comportamiento racional.", "subject": "Comportamiento", "tier": 4, "type": "conceptual", "mastery": "Podés identificar sesgos como anclaje o disponibilidad en decisiones económicas reales."}, {"id": "teoria_prospectiva", "title": "Teoría prospectiva", "description": "La gente evalúa ganancias y pérdidas respecto de un punto de referencia y odia perder más de lo que ama ganar (aversión a la pérdida). Reformula la teoría de la decisión.", "subject": "Comportamiento", "tier": 5, "type": "conceptual", "mastery": "Podés explicar la aversión a la pérdida y por qué contradice la teoría de utilidad esperada."}], "dependencies": [{"topic": "trade_offs", "prerequisite": "escasez", "type": "hard", "reason": "Los trade-offs son la consecuencia directa de la escasez."}, {"topic": "pensamiento_marginal", "prerequisite": "escasez", "type": "soft", "reason": "Razonar en el margen presupone que los recursos son limitados."}, {"topic": "intercambio_ganancias", "prerequisite": "escasez", "type": "hard", "reason": "Sin escasez el intercambio no crearía valor."}, {"topic": "intercambio_ganancias", "prerequisite": "incentivos", "type": "soft", "reason": "El intercambio ocurre porque a ambas partes les conviene."}, {"topic": "eficiencia_equidad", "prerequisite": "trade_offs", "type": "soft", "reason": "La tensión eficiencia-equidad es un trade-off de política."}, {"topic": "oferta_demanda", "prerequisite": "escasez", "type": "hard", "reason": "Oferta y demanda modelan cómo la escasez se resuelve vía precios."}, {"topic": "oferta_demanda", "prerequisite": "incentivos", "type": "soft", "reason": "Compradores y vendedores responden a incentivos de precio."}, {"topic": "equilibrio_mercado", "prerequisite": "oferta_demanda", "type": "hard", "reason": "El equilibrio surge del cruce de oferta y demanda."}, {"topic": "equilibrio_mercado", "prerequisite": "ceteris_paribus", "type": "soft", "reason": "Analizar desplazamientos exige mantener lo demás constante."}, {"topic": "elasticidad", "prerequisite": "equilibrio_mercado", "type": "hard", "reason": "La elasticidad describe cómo responden las curvas ya definidas."}, {"topic": "elasticidad", "prerequisite": "pensamiento_marginal", "type": "soft", "reason": "Es una respuesta marginal de cantidad ante precio."}, {"topic": "excedente", "prerequisite": "equilibrio_mercado", "type": "hard", "reason": "El excedente se mide sobre el gráfico de oferta y demanda."}, {"topic": "utilidad", "prerequisite": "pensamiento_marginal", "type": "hard", "reason": "La utilidad marginal decreciente es pensamiento marginal aplicado al consumo."}, {"topic": "oferta_demanda", "prerequisite": "utilidad", "type": "soft", "reason": "La demanda se fundamenta en la utilidad marginal decreciente."}, {"topic": "restriccion_presupuestaria", "prerequisite": "escasez", "type": "hard", "reason": "El presupuesto es la escasez a nivel del consumidor."}, {"topic": "teoria_consumidor", "prerequisite": "utilidad", "type": "hard", "reason": "La elección óptima maximiza utilidad."}, {"topic": "teoria_consumidor", "prerequisite": "restriccion_presupuestaria", "type": "hard", "reason": "Se optimiza dentro del presupuesto."}, {"topic": "teoria_consumidor", "prerequisite": "pensamiento_marginal", "type": "soft", "reason": "El óptimo iguala utilidades marginales por peso."}, {"topic": "produccion_costos", "prerequisite": "pensamiento_marginal", "type": "hard", "reason": "La decisión de producir se toma en el margen (costo marginal)."}, {"topic": "rendimientos", "prerequisite": "produccion_costos", "type": "hard", "reason": "Rendimientos y escala describen cómo evolucionan los costos."}, {"topic": "competencia_perfecta", "prerequisite": "produccion_costos", "type": "hard", "reason": "La empresa produce donde precio iguala al costo marginal."}, {"topic": "competencia_perfecta", "prerequisite": "equilibrio_mercado", "type": "hard", "reason": "Es el mercado idealizado de oferta y demanda."}, {"topic": "monopolio", "prerequisite": "competencia_perfecta", "type": "hard", "reason": "El monopolio se entiende por contraste con la competencia."}, {"topic": "monopolio", "prerequisite": "elasticidad", "type": "soft", "reason": "El poder de fijar precio depende de la elasticidad de la demanda."}, {"topic": "oligopolio", "prerequisite": "monopolio", "type": "soft", "reason": "Es un caso intermedio entre competencia y monopolio."}, {"topic": "oligopolio", "prerequisite": "teoria_juegos", "type": "hard", "reason": "Las decisiones oligopólicas son estratégicas e interdependientes."}, {"topic": "teoria_juegos", "prerequisite": "incentivos", "type": "hard", "reason": "El juego se resuelve analizando incentivos interdependientes."}, {"topic": "externalidades", "prerequisite": "equilibrio_mercado", "type": "hard", "reason": "La externalidad desvía la cantidad del equilibrio eficiente."}, {"topic": "bienes_publicos", "prerequisite": "externalidades", "type": "soft", "reason": "Comparten la lógica de beneficios/costos no internalizados."}, {"topic": "bienes_publicos", "prerequisite": "incentivos", "type": "hard", "reason": "El problema del free-rider es un problema de incentivos."}, {"topic": "asimetria_info", "prerequisite": "incentivos", "type": "hard", "reason": "Selección adversa y riesgo moral son fallas de incentivos por información."}, {"topic": "fallas_mercado", "prerequisite": "externalidades", "type": "hard", "reason": "Las externalidades son un tipo de falla de mercado."}, {"topic": "fallas_mercado", "prerequisite": "bienes_publicos", "type": "hard", "reason": "Los bienes públicos son una falla de mercado."}, {"topic": "fallas_mercado", "prerequisite": "asimetria_info", "type": "hard", "reason": "La información asimétrica es una falla de mercado."}, {"topic": "fallas_mercado", "prerequisite": "monopolio", "type": "hard", "reason": "El poder de mercado es una falla de mercado."}, {"topic": "peso_muerto", "prerequisite": "excedente", "type": "hard", "reason": "El peso muerto se mide como pérdida de excedente."}, {"topic": "controles_precios", "prerequisite": "equilibrio_mercado", "type": "hard", "reason": "Un control genera faltante o excedente respecto del equilibrio."}, {"topic": "controles_precios", "prerequisite": "elasticidad", "type": "soft", "reason": "La magnitud del faltante depende de las elasticidades."}, {"topic": "impuestos_incidencia", "prerequisite": "elasticidad", "type": "hard", "reason": "La incidencia se reparte según las elasticidades relativas."}, {"topic": "impuestos_incidencia", "prerequisite": "peso_muerto", "type": "soft", "reason": "Los impuestos generan peso muerto además de recaudación."}, {"topic": "mercado_laboral", "prerequisite": "oferta_demanda", "type": "hard", "reason": "El trabajo se modela con oferta y demanda."}, {"topic": "pib", "prerequisite": "intercambio_ganancias", "type": "soft", "reason": "El PIB agrega el valor producido e intercambiado."}, {"topic": "inflacion", "prerequisite": "oferta_demanda", "type": "soft", "reason": "La inflación se piensa como un desajuste general de precios."}, {"topic": "inflacion", "prerequisite": "dinero_bancos", "type": "soft", "reason": "En el fondo la inflación tiene una raíz monetaria."}, {"topic": "desempleo", "prerequisite": "mercado_laboral", "type": "hard", "reason": "El desempleo es un desequilibrio del mercado laboral."}, {"topic": "ciclo_economico", "prerequisite": "pib", "type": "hard", "reason": "El ciclo se define por fluctuaciones del PIB."}, {"topic": "ciclo_economico", "prerequisite": "desempleo", "type": "soft", "reason": "El desempleo cíclico acompaña las fases del ciclo."}, {"topic": "oferta_demanda_agregada", "prerequisite": "oferta_demanda", "type": "hard", "reason": "Es la analogía macro del modelo micro de oferta y demanda."}, {"topic": "oferta_demanda_agregada", "prerequisite": "pib", "type": "hard", "reason": "Relaciona nivel de precios con producto total."}, {"topic": "oferta_demanda_agregada", "prerequisite": "ciclo_economico", "type": "soft", "reason": "Sirve para analizar shocks del ciclo."}, {"topic": "tasas_interes", "prerequisite": "dinero_bancos", "type": "soft", "reason": "Las tasas son el precio del crédito que crea el sistema bancario."}, {"topic": "tasas_interes", "prerequisite": "inflacion", "type": "soft", "reason": "La tasa real descuenta la inflación de la nominal."}, {"topic": "banco_central", "prerequisite": "dinero_bancos", "type": "hard", "reason": "El banco central actúa sobre el dinero y las reservas."}, {"topic": "banco_central", "prerequisite": "tasas_interes", "type": "hard", "reason": "Su herramienta central es la tasa de interés."}, {"topic": "banco_central", "prerequisite": "inflacion", "type": "hard", "reason": "Su objetivo típico es controlar la inflación."}, {"topic": "politica_fiscal", "prerequisite": "pib", "type": "hard", "reason": "Gasto e impuestos actúan sobre el producto agregado."}, {"topic": "politica_fiscal", "prerequisite": "oferta_demanda_agregada", "type": "soft", "reason": "La política fiscal mueve la demanda agregada."}, {"topic": "is_lm", "prerequisite": "politica_fiscal", "type": "hard", "reason": "IS-LM integra el efecto de la política fiscal."}, {"topic": "is_lm", "prerequisite": "banco_central", "type": "hard", "reason": "IS-LM integra el efecto de la política monetaria."}, {"topic": "is_lm", "prerequisite": "oferta_demanda_agregada", "type": "soft", "reason": "IS-LM está detrás de la curva de demanda agregada."}, {"topic": "curva_phillips", "prerequisite": "inflacion", "type": "hard", "reason": "Relaciona inflación con desempleo."}, {"topic": "curva_phillips", "prerequisite": "desempleo", "type": "hard", "reason": "Relaciona desempleo con inflación."}, {"topic": "curva_phillips", "prerequisite": "expectativas", "type": "hard", "reason": "Las expectativas explican por qué el trade-off se rompe."}, {"topic": "crecimiento", "prerequisite": "pib", "type": "hard", "reason": "El crecimiento es la evolución del PIB en el largo plazo."}, {"topic": "crecimiento", "prerequisite": "produccion_costos", "type": "soft", "reason": "La productividad enlaza con la función de producción."}, {"topic": "tipo_cambio", "prerequisite": "oferta_demanda", "type": "hard", "reason": "El tipo de cambio es un precio de mercado."}, {"topic": "tipo_cambio", "prerequisite": "tasas_interes", "type": "soft", "reason": "Las tasas relativas influyen sobre el tipo de cambio."}, {"topic": "balanza_pagos", "prerequisite": "tipo_cambio", "type": "hard", "reason": "El tipo de cambio equilibra los flujos externos."}, {"topic": "balanza_pagos", "prerequisite": "ventaja_comparativa", "type": "soft", "reason": "El comercio es el corazón de la cuenta corriente."}, {"topic": "ventaja_comparativa", "prerequisite": "escasez", "type": "hard", "reason": "Se basa en costos de oportunidad, que nacen de la escasez."}, {"topic": "ventaja_comparativa", "prerequisite": "intercambio_ganancias", "type": "hard", "reason": "Es la formalización de las ganancias del comercio."}, {"topic": "expectativas", "prerequisite": "inflacion", "type": "soft", "reason": "Las expectativas de inflación son el caso paradigmático."}, {"topic": "expectativas", "prerequisite": "modelos_supuestos", "type": "soft", "reason": "Distintos supuestos sobre expectativas dan modelos distintos."}, {"topic": "hiperinflacion", "prerequisite": "inflacion", "type": "hard", "reason": "Es el caso extremo de la inflación."}, {"topic": "hiperinflacion", "prerequisite": "politica_fiscal", "type": "hard", "reason": "Nace de financiar el déficit con emisión."}, {"topic": "hiperinflacion", "prerequisite": "banco_central", "type": "hard", "reason": "Implica pérdida de control monetario."}, {"topic": "valor_tiempo_dinero", "prerequisite": "tasas_interes", "type": "hard", "reason": "La tasa es lo que hace que el tiempo tenga valor."}, {"topic": "valor_presente", "prerequisite": "valor_tiempo_dinero", "type": "hard", "reason": "Descontar es aplicar el valor tiempo del dinero."}, {"topic": "riesgo_retorno", "prerequisite": "valor_presente", "type": "hard", "reason": "El retorno se define sobre flujos descontados."}, {"topic": "riesgo_retorno", "prerequisite": "utilidad", "type": "soft", "reason": "La aversión al riesgo se fundamenta en la utilidad."}, {"topic": "diversificacion", "prerequisite": "riesgo_retorno", "type": "hard", "reason": "Diversificar es gestionar el trade-off riesgo-retorno."}, {"topic": "bonos_rendimiento", "prerequisite": "valor_presente", "type": "hard", "reason": "Un bono es un flujo de pagos descontado."}, {"topic": "bonos_rendimiento", "prerequisite": "tasas_interes", "type": "hard", "reason": "Precio y rendimiento dependen de las tasas."}, {"topic": "valuacion_acciones", "prerequisite": "valor_presente", "type": "hard", "reason": "Una acción vale el valor presente de sus flujos."}, {"topic": "valuacion_acciones", "prerequisite": "riesgo_retorno", "type": "soft", "reason": "La tasa de descuento incorpora el riesgo."}, {"topic": "valuacion_acciones", "prerequisite": "expectativas", "type": "soft", "reason": "El precio refleja expectativas de flujos futuros."}, {"topic": "arbitraje", "prerequisite": "valor_presente", "type": "soft", "reason": "El arbitraje impone consistencia entre precios y flujos."}, {"topic": "mercados_eficientes", "prerequisite": "arbitraje", "type": "hard", "reason": "El arbitraje es el mecanismo que hace eficientes los precios."}, {"topic": "mercados_eficientes", "prerequisite": "expectativas", "type": "soft", "reason": "Precios eficientes incorporan expectativas racionales."}, {"topic": "capm", "prerequisite": "riesgo_retorno", "type": "hard", "reason": "Formaliza la relación riesgo-retorno."}, {"topic": "capm", "prerequisite": "diversificacion", "type": "hard", "reason": "Solo el riesgo no diversificable se premia."}, {"topic": "opciones_derivados", "prerequisite": "valuacion_acciones", "type": "hard", "reason": "Su valor deriva del activo subyacente."}, {"topic": "opciones_derivados", "prerequisite": "arbitraje", "type": "hard", "reason": "Se valúan por argumentos de no arbitraje."}, {"topic": "opciones_derivados", "prerequisite": "riesgo_retorno", "type": "soft", "reason": "El valor depende de la volatilidad, que es riesgo."}, {"topic": "mano_invisible", "prerequisite": "equilibrio_mercado", "type": "hard", "reason": "El orden espontáneo se apoya en la coordinación por precios."}, {"topic": "mano_invisible", "prerequisite": "incentivos", "type": "soft", "reason": "Se basa en individuos siguiendo sus incentivos."}, {"topic": "escuelas_pensamiento", "prerequisite": "oferta_demanda_agregada", "type": "soft", "reason": "Difieren en cómo funciona la macro."}, {"topic": "escuelas_pensamiento", "prerequisite": "mano_invisible", "type": "hard", "reason": "Se organizan según cuánto confían en el mercado."}, {"topic": "escuelas_pensamiento", "prerequisite": "politica_fiscal", "type": "soft", "reason": "Discrepan sobre el rol de la política fiscal."}, {"topic": "instituciones", "prerequisite": "incentivos", "type": "hard", "reason": "Las instituciones son estructuras de incentivos."}, {"topic": "instituciones", "prerequisite": "mano_invisible", "type": "soft", "reason": "Los derechos de propiedad habilitan la coordinación por mercado."}, {"topic": "eleccion_publica", "prerequisite": "incentivos", "type": "hard", "reason": "Aplica el análisis de incentivos a los actores políticos."}, {"topic": "eleccion_publica", "prerequisite": "fallas_mercado", "type": "soft", "reason": "Contrapone fallas de mercado con fallas de gobierno."}, {"topic": "desigualdad", "prerequisite": "eficiencia_equidad", "type": "hard", "reason": "Es el terreno donde se juega el trade-off equidad-eficiencia."}, {"topic": "desigualdad", "prerequisite": "mercado_laboral", "type": "soft", "reason": "Buena parte de la desigualdad nace en el mercado de trabajo."}, {"topic": "desarrollo", "prerequisite": "crecimiento", "type": "hard", "reason": "El desarrollo es crecimiento sostenido más transformación."}, {"topic": "desarrollo", "prerequisite": "instituciones", "type": "hard", "reason": "Las instituciones son un determinante central del desarrollo."}, {"topic": "gran_depresion", "prerequisite": "ciclo_economico", "type": "hard", "reason": "Es el colapso cíclico por excelencia."}, {"topic": "gran_depresion", "prerequisite": "oferta_demanda_agregada", "type": "soft", "reason": "Se explica como un derrumbe de la demanda agregada."}, {"topic": "gran_depresion", "prerequisite": "escuelas_pensamiento", "type": "soft", "reason": "Dio origen a la revolución keynesiana."}, {"topic": "estanflacion", "prerequisite": "curva_phillips", "type": "hard", "reason": "Rompió la curva de Phillips ingenua."}, {"topic": "estanflacion", "prerequisite": "expectativas", "type": "hard", "reason": "Se explica por el rol de las expectativas."}, {"topic": "estanflacion", "prerequisite": "escuelas_pensamiento", "type": "soft", "reason": "Impulsó al monetarismo frente al keynesianismo."}, {"topic": "crisis_2008", "prerequisite": "valuacion_acciones", "type": "soft", "reason": "Involucró errores masivos de valuación de activos."}, {"topic": "crisis_2008", "prerequisite": "asimetria_info", "type": "hard", "reason": "Selección adversa y riesgo moral fueron centrales."}, {"topic": "crisis_2008", "prerequisite": "banco_central", "type": "soft", "reason": "El rol del banco central como prestamista de última instancia fue clave."}, {"topic": "racionalidad_limitada", "prerequisite": "modelos_supuestos", "type": "hard", "reason": "Cuestiona el supuesto de racionalidad perfecta."}, {"topic": "racionalidad_limitada", "prerequisite": "teoria_consumidor", "type": "soft", "reason": "Contrasta con el consumidor optimizador estándar."}, {"topic": "heuristicas_sesgos", "prerequisite": "racionalidad_limitada", "type": "hard", "reason": "Los sesgos son manifestaciones de racionalidad limitada."}, {"topic": "teoria_prospectiva", "prerequisite": "heuristicas_sesgos", "type": "hard", "reason": "Formaliza los desvíos sistemáticos observados."}, {"topic": "teoria_prospectiva", "prerequisite": "utilidad", "type": "hard", "reason": "Reemplaza la utilidad esperada como teoría de la decisión."}]};
+const SUBJECTS = [
+  ["Fundamentos","var(--s-fund)"],
+  ["Microeconomía","var(--s-micro)"],
+  ["Macroeconomía","var(--s-macro)"],
+  ["Finanzas","var(--s-fin)"],
+  ["Política e Historia","var(--s-poli)"],
+  ["Comportamiento","var(--s-comp)"],
+];
+const subjColor = Object.fromEntries(SUBJECTS);
+const TYPE_ES = {conceptual:"Conceptual",procedimental:"Procedimental",representacional:"Representacional",lenguaje:"Lenguaje",meta:"Meta"};
+
+const byId = Object.fromEntries(DATA.topics.map(t=>[t.id,t]));
+// build adjacency: prereq -> [topics it unlocks]; topic -> [its prereqs]
+const prereqsOf = {}, unlocksOf = {};
+DATA.topics.forEach(t=>{prereqsOf[t.id]=[]; unlocksOf[t.id]=[];});
+DATA.dependencies.forEach(d=>{
+  prereqsOf[d.topic].push(d);          // {prerequisite, type, reason}
+  unlocksOf[d.prerequisite].push(d);   // {topic, type, reason}
+});
+const nodes = DATA.topics.map(t=>({...t, unlocks:unlocksOf[t.id].length}));
+const links = DATA.dependencies.map(d=>({source:d.prerequisite, target:d.topic, kind:d.type}));
+
+// ---------- legend ----------
+const activeSubjects = new Set(SUBJECTS.map(s=>s[0]));
+const legend = d3.select("#legend");
+SUBJECTS.forEach(([name,col])=>{
+  const chip = legend.append("div").attr("class","chip").attr("data-s",name);
+  chip.append("span").attr("class","dot").style("background",col);
+  chip.append("span").text(name);
+  chip.on("click",()=>{
+    if(activeSubjects.has(name)){activeSubjects.delete(name); chip.classed("off",true);}
+    else{activeSubjects.add(name); chip.classed("off",false);}
+    applyFilter();
+  });
+});
+legend.append("div").attr("class","spacer");
+const tk = legend.append("div").attr("class","tier-key");
+tk.append("span").text("fundamentos");
+tk.append("span").attr("class","bar");
+tk.append("span").text("cimas");
+
+// ---------- svg / sim ----------
+const svg = d3.select("#graph");
+let W=0,H=0;
+const gZoom = svg.append("g");
+const gLink = gZoom.append("g");
+const gNode = gZoom.append("g");
+
+const radius = d=> 5 + 2.3*Math.sqrt(d.unlocks);
+const tierY = t => 0.5 + (5 - t)/4 * 0; // placeholder, set in layout()
+
+const sim = d3.forceSimulation(nodes)
+  .force("link", d3.forceLink(links).id(d=>d.id).distance(l=> l.kind==="hard"?58:74).strength(0.35))
+  .force("charge", d3.forceManyBody().strength(-190))
+  .force("collide", d3.forceCollide().radius(d=>radius(d)+7))
+  .force("x", d3.forceX().strength(0.04))
+  .force("y", d3.forceY().strength(0.5));
+
+const link = gLink.selectAll("path").data(links).join("path")
+  .attr("class", d=>"link"+(d.kind==="soft"?" soft":""))
+  .attr("stroke-width", d=>d.kind==="hard"?1.1:0.9);
+
+const node = gNode.selectAll("g").data(nodes).join("g")
+  .attr("class","node").attr("tabindex",0)
+  .call(d3.drag()
+    .on("start",(e,d)=>{if(!e.active)sim.alphaTarget(.25).restart(); d.fx=d.x; d.fy=d.y;})
+    .on("drag",(e,d)=>{d.fx=e.x; d.fy=e.y;})
+    .on("end",(e,d)=>{if(!e.active)sim.alphaTarget(0); d.fx=null; d.fy=null;}));
+
+node.append("circle").attr("r",radius).attr("fill",d=>subjColor[d.subject]);
+node.append("text").attr("x",d=>radius(d)+4).attr("dy","0.32em").text(d=>d.title);
+
+node.on("mouseenter",(e,d)=>{ if(mode==="explore") hover(d); })
+    .on("mouseleave",()=>{ if(mode==="explore") clearHover(); })
+    .on("click",(e,d)=>{ e.stopPropagation(); mode==="route"?showRoute(d):openDetail(d); })
+    .on("keydown",(e,d)=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault(); mode==="route"?showRoute(d):openDetail(d);} });
+
+svg.on("click",()=>{ if(mode==="explore"){clearHover(); closePanel();} });
+
+sim.on("tick",()=>{
+  link.attr("d",l=>{
+    const dx=l.target.x-l.source.x, dy=l.target.y-l.source.y;
+    return `M${l.source.x},${l.source.y}L${l.target.x},${l.target.y}`;
+  });
+  node.attr("transform",d=>`translate(${d.x},${d.y})`);
+});
+
+// zoom/pan
+const zoom = d3.zoom().scaleExtent([0.4,3])
+  .filter(e=> !(e.target.closest && e.target.closest(".node")))
+  .on("zoom",e=>gZoom.attr("transform",e.transform));
+svg.call(zoom).on("dblclick.zoom",null);
+svg.on("mousedown",()=>svg.classed("grabbing",true)).on("mouseup",()=>svg.classed("grabbing",false));
+
+function layout(){
+  const st=document.getElementById("stage").getBoundingClientRect();
+  W=st.width; H=st.height;
+  svg.attr("viewBox",`0 0 ${W} ${H}`);
+  const padTop=104, padBot=64;
+  sim.force("x").x(W/2);
+  sim.force("y").y(d=> padTop + (5-d.tier)/4 * (H-padTop-padBot));
+  sim.alpha(0.9).restart();
+}
+window.addEventListener("resize",layout);
+// set header offset var for legend
+document.documentElement.style.setProperty("--hdr", (document.querySelector("header").offsetHeight)+"px");
+layout();
+// reduced motion: settle fast
+if(matchMedia("(prefers-reduced-motion:reduce)").matches){ for(let i=0;i<300;i++)sim.tick(); sim.stop(); layout(); sim.alpha(0).stop(); }
+
+// ---------- hover ----------
+function neighbors(id){
+  const s=new Set([id]);
+  prereqsOf[id].forEach(d=>s.add(d.prerequisite));
+  unlocksOf[id].forEach(d=>s.add(d.topic));
+  return s;
+}
+function hover(d){
+  const nb=neighbors(d.id);
+  node.classed("dim",n=>!nb.has(n.id)).classed("show-label",n=>nb.has(n.id));
+  link.style("stroke",l=> (l.source.id===d.id||l.target.id===d.id)?"var(--gold)":null)
+      .style("opacity",l=> (l.source.id===d.id||l.target.id===d.id)?1:0.12);
+}
+function clearHover(){
+  if(routeSet) return; // keep route highlight
+  node.classed("dim",false).classed("show-label",false);
+  link.style("stroke",null).style("opacity",null);
+}
+
+// ---------- filter ----------
+function applyFilter(){
+  node.style("display",d=> activeSubjects.has(d.subject)?null:"none");
+  link.style("display",l=> (activeSubjects.has(byId[l.source.id||l.source].subject) &&
+                            activeSubjects.has(byId[l.target.id||l.target].subject))?null:"none");
+}
+
+// ---------- search ----------
+const searchEl=document.getElementById("search");
+searchEl.addEventListener("input",()=>{
+  const q=searchEl.value.trim().toLowerCase();
+  if(!q){ node.classed("show-label",false).classed("dim",false); return; }
+  node.classed("show-label",d=>d.title.toLowerCase().includes(q))
+      .classed("dim",d=>!d.title.toLowerCase().includes(q));
+});
+
+// ---------- modes ----------
+let mode="explore", routeSet=null;
+const bE=document.getElementById("mExplore"), bR=document.getElementById("mRoute");
+bE.onclick=()=>setMode("explore"); bR.onclick=()=>setMode("route");
+function setMode(m){
+  mode=m; bE.classList.toggle("on",m==="explore"); bR.classList.toggle("on",m==="route");
+  routeSet=null; clearRoute(); closePanel();
+  document.getElementById("hint").textContent = m==="route"
+    ? "Tocá un concepto destino y te armo la secuencia de estudio para llegar"
+    : "Pasá el mouse para ver conexiones · tocá un concepto para abrirlo";
+}
+
+// ---------- detail panel ----------
+const panel=document.getElementById("panel");
+function closePanel(){ panel.classList.remove("open"); }
+function relRow(t, kind){
+  const c=subjColor[t.subject];
+  return `<div class="rel" data-goto="${t.id}"><span class="dot" style="background:${c}"></span>
+    <span>${t.title}</span><span class="k">${kind}</span></div>`;
+}
+function openDetail(d){
+  const pre=prereqsOf[d.id], unl=unlocksOf[d.id];
+  const c=subjColor[d.subject];
+  panel.innerHTML = `
+    <button class="pclose" aria-label="Cerrar">✕</button>
+    <div class="p-subject"><span class="dot" style="background:${c}"></span>${d.subject}</div>
+    <h2 class="p-title">${d.title}</h2>
+    <div class="p-meta">
+      <span class="tag tier">Nivel ${d.tier}/5</span>
+      <span class="tag">${TYPE_ES[d.type]||d.type}</span>
+    </div>
+    <p class="p-desc">${d.description}</p>
+    <p class="p-master"><b>Sabés que lo dominás si</b>${d.mastery}</p>
+    <div class="p-sec"><h4>Necesitás antes (${pre.length})</h4>
+      ${pre.length?pre.map(x=>relRow(byId[x.prerequisite], x.type)).join(""):'<p class="empty">Nada — es un punto de partida.</p>'}</div>
+    <div class="p-sec"><h4>Te habilita (${unl.length})</h4>
+      ${unl.length?unl.map(x=>relRow(byId[x.topic], x.type)).join(""):'<p class="empty">Es una cima: no es prerrequisito de nada más.</p>'}</div>
+  `;
+  panel.classList.add("open");
+  panel.querySelector(".pclose").onclick=closePanel;
+  panel.querySelectorAll(".rel").forEach(r=>r.onclick=()=>{
+    const t=byId[r.dataset.goto]; focusNode(t); openDetail(t);
+  });
+  focusNode(d); hover(d); routeSet=null;
+}
+function focusNode(d){
+  const t=d3.zoomTransform(svg.node());
+  const tx=W/2 - d.x*t.k, ty=H/2 - d.y*t.k;
+  svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity.translate(tx,ty).scale(Math.max(t.k,1.1)));
+}
+
+// ---------- route mode: topological prereq path ----------
+function ancestors(id){
+  const seen=new Set(), order=[];
+  (function walk(x){ prereqsOf[x].forEach(d=>{ if(!seen.has(d.prerequisite)){seen.add(d.prerequisite); walk(d.prerequisite);} }); })(id);
+  return seen;
+}
+function topoOrder(idset){
+  // Kahn over subgraph induced by idset
+  const indeg={}, adj={};
+  idset.forEach(i=>{indeg[i]=0; adj[i]=[];});
+  DATA.dependencies.forEach(d=>{
+    if(idset.has(d.topic)&&idset.has(d.prerequisite)){ adj[d.prerequisite].push(d.topic); indeg[d.topic]++; }
+  });
+  let q=[...idset].filter(i=>indeg[i]===0);
+  q.sort((a,b)=>byId[a].tier-byId[b].tier || byId[a].title.localeCompare(byId[b].title));
+  const out=[];
+  while(q.length){
+    const u=q.shift(); out.push(u);
+    adj[u].forEach(v=>{ if(--indeg[v]===0) q.push(v); });
+    q.sort((a,b)=>byId[a].tier-byId[b].tier || byId[a].title.localeCompare(byId[b].title));
+  }
+  return out;
+}
+function clearRoute(){
+  node.classed("dim",false).classed("show-label",false).classed("route-on",false);
+  link.style("stroke",null).style("opacity",null);
+}
+function showRoute(target){
+  const anc=ancestors(target.id);
+  const full=new Set(anc); full.add(target.id);
+  const order=topoOrder(full);
+  routeSet=full;
+  // highlight
+  node.classed("dim",n=>!full.has(n.id))
+      .classed("route-on",n=>full.has(n.id))
+      .classed("show-label",n=> n.id===target.id);
+  link.style("opacity",l=> (full.has(l.source.id)&&full.has(l.target.id))?0.9:0.06)
+      .style("stroke",l=> (full.has(l.source.id)&&full.has(l.target.id))?"var(--gold)":null);
+  // panel: ordered study plan
+  const c=subjColor[target.subject];
+  const steps = order.map((id,i)=>{
+    const t=byId[id]; const isT=id===target.id;
+    return `<div class="step ${isT?'target':''}" data-goto="${id}">
+      <span class="n">${i+1}</span>
+      <div class="body"><div class="t">${t.title}${isT?' &nbsp;•&nbsp; destino':''}</div>
+        <div class="m"><span class="dot" style="background:${subjColor[t.subject]}"></span>${t.subject} · nivel ${t.tier}</div>
+      </div></div>`;
+  }).join("");
+  panel.innerHTML = `
+    <button class="pclose" aria-label="Cerrar">✕</button>
+    <div class="route-head">
+      <div class="p-subject"><span class="dot" style="background:${c}"></span>Ruta de estudio</div>
+      <h2 class="p-title">Hasta ${target.title}</h2>
+    </div>
+    <p class="route-lead"><b>${order.length} conceptos</b> en orden sugerido. Cada uno solo aparece después de todo lo que necesita antes.</p>
+    ${steps}
+  `;
+  panel.classList.add("open");
+  panel.querySelector(".pclose").onclick=()=>{closePanel(); routeSet=null; clearRoute();};
+  panel.querySelectorAll(".step").forEach(s=>s.onclick=()=>{ const t=byId[s.dataset.goto]; focusNode(t); });
+  focusNode(target);
+}
+
+// fade hint after a moment
+setTimeout(()=>{const h=document.getElementById("hint"); if(h)h.style.opacity=.0;}, 6500);
+document.getElementById("stage").addEventListener("mousemove",()=>{const h=document.getElementById("hint"); if(h)h.style.opacity="";},{once:true});
+</script>
+</body>
+</html>
