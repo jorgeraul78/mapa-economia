@@ -2855,5 +2855,73 @@ window.LESSONS = {
       }
     ],
     "takeaway": "El tercer péndulo democrático: la reactivación no puede ser un estado permanente, aunque se la administre con cepo y no con corralito."
+  },
+  "macri_gradualismo": {
+    "id": "macri_gradualismo",
+    "hook": "En diciembre de 2015 Macri levantó el cepo y el mercado aplaudió: la Argentina 'volvió al mundo'. Tres años después pedía el mayor préstamo de la historia del FMI mientras el peso se desmoronaba. La ilusión duró lo que el crédito fresco.",
+    "explanation": [
+      "El ciclo de <b>Mauricio Macri (2015-2019)</b> arranca como una ilusión clásica del mapa Gerchunoff-Llach, aunque el libro solo alcanza a rozarlo: después del agotamiento kirchnerista, la promesa era normalizar. A los pocos días de asumir se unificó el tipo de cambio y se <b>salió del cepo</b>: el dólar oficial saltó del orden de $10 a casi $14 (devaluación cercana al 40%). Se reabrió el acceso a los mercados de deuda, se buscó un arreglo con holdouts y el Banco Central ensayó <b>metas de inflación</b>. El relato era de reinserción: basura menos el Estado, más el mercado, pero sin el ajuste de shock que Macri temía políticamente.",
+      "Esa es la clave del <b>gradualismo</b>: bajar el déficit y la inflación de a poco, financiando la transición con <b>endeudamiento externo</b> y colocaciones en pesos a tasas altas (Lebacs). Mientras entraba capital, el esquema se sostenía y 2017 hasta pareció un año de alivio. Pero el gradualismo es un atajo de tiempo comprado con deuda: necesita que los mercados renueven la confianza una y otra vez. En 2018 esa confianza se cortó —suba de tasas en EE.UU., sequía, dudas fiscales, idas y vueltas del BCRA— y arrancó la <b>corrida</b>.",
+      "Entre abril y septiembre de 2018 el peso se desplomó (del orden de $20 a picos cercanos a $40). Macri anunció tratativas con el <b>FMI</b>; el stand-by llegó a unos <b>57.000 millones de dólares</b>, el mayor de la historia del organismo. Las tasas de política monetaria treparon a niveles extremos (en un momento, 60%). Sturzenegger dejó el Central; después Caputo; Sandleris impuso base monetaria en cero y bandas de flotación. La recesión y la inflación se reaceleraron. En 2019, tras la derrota en las PASO, otra devaluación y, al final, el regreso de un <b>cepo</b> (límite de US$200). El gobierno que había nacido sacando controles terminó reponiéndolos: ilusión de normalidad, desencanto de corrida y ajuste a destiempo."
+    ],
+    "example": {
+      "title": "Cuando el anuncio 'tranquiliza' y el mercado huye",
+      "body": "En mayo de 2018 el dólar ya venía trepando. Macri sale a decir que están en conversaciones con el FMI… y el peso se deprecia más: el mercado lee necesidad, no fortaleza. Meses después, un mensaje breve sobre 'renegociar' el acuerdo sin detalles vuelve a incendiar la cotización. Es la gramática argentina de siempre: sin ancla fiscal creíble, la deuda y el tipo de cambio flexible no reemplazan un plan; solo retrasan el momento en que hay que devaluar de verdad. La tablita de 1979 y la convertibilidad de 1991 también prometieron anclar precios con reglas; el gradualismo 2016-18 prometió anclar expectativas con tiempo y credit. Cuando se acaba el crédito, se acaba la regla."
+    },
+    "check": [
+      {
+        "type": "mcq",
+        "q": "¿Cuál fue el núcleo del 'gradualismo' macrista y por qué se quebró en 2018?",
+        "options": [
+          "Bajar déficit e inflación de a poco financiando la transición con crédito externo; se quebró cuando se cortó el financiamiento y estalló una corrida cambiaria",
+          "Ajuste fiscal de shock inmediato sin deuda externa, que eliminó la inflación en un año",
+          "Vuelta a la convertibilidad 1 a 1 con respaldo pleno de reservas desde 2016",
+          "Prohibición total de importaciones para acumular superávit comercial permanente"
+        ],
+        "answer": 0,
+        "explain": "El gradualismo postergó el ajuste grueso y se financió con mercados; en 2018 la salida de capitales forzó devaluación y el megacrédito del FMI."
+      },
+      {
+        "type": "open",
+        "q": "¿En qué sentido el ciclo Macri ilustra un 'atajo' al estilo del ciclo de la ilusión y el desencanto?",
+        "criterion": "Podés explicar el gradualismo macrista como atajo de financiamiento externo y por qué la crisis cambiaria de 2018-19 cortó esa ilusión.",
+        "model": "Prometió prosperidad y normalidad rápida vía reinserción financiera sin un ajuste fiscal de shock; el endeudamiento compró tiempo hasta que la corrida de 2018 y el FMI revelaron que el atajo se había agotado."
+      }
+    ],
+    "takeaway": "El gradualismo es tiempo comprado con deuda: cuando el mercado deja de renovar la confianza, la devaluación cobra todo junto."
+  },
+  "fernandez_inflacion": {
+    "id": "fernandez_inflacion",
+    "hook": "Alberto Fernández ganó prometiendo 'volver mejores'. No hubo boom ni 'tasas chinas': hubo pandemia, cepo más duro y una inflación que cerró 2023 en 211,4% —la más alta desde 1991—. Una etapa casi sin ilusión, con mucho desencanto.",
+    "explanation": [
+      "El <b>gobierno Fernández-Fernández (2019-2023)</b> es el reverso del primer kirchnerismo del libro: no arranca con capacidad ociosa y soja en alza tras un pozo como 2002, sino con deuda al FMI, cepo reimpuesto, inflación ya de dos dígitos altos y una sociedad exhausta de 2018-19. La coalición unió a Alberto Fernández con Cristina Fernández de Kirchner, pero la macro nunca ofreció un relato de despegue creíble. Hubo reestructuración de deuda soberana y, en 2020, el shock de la <b>pandemia</b>: caída fuerte del producto, gasto de emergencia y emisión. La recuperación posterior no rearmó un círculo virtuoso de superávits gemelos y tipo de cambio competitivo estable.",
+      "Lo que sí se consolidó fue la <b>restricción externa</b> administrada con cepo: brecha cambiaria, dólares financieros múltiples (MEP, CCL, blue), permisos de importación y un Banco Central que financió al Tesoro en dosis crecientes. Los acuerdos con el FMI se renegociaron sin restaurar del todo la confianza. La inflación, lejos de anclarse, trepó peldaño a peldaño: alrededor de 36% en 2020, 51% en 2021, 95% en 2022 y <b>211,4% en 2023</b> según el INDEC —el registro anual más alto desde 1991—. Diciembre de 2023 solo aportó 25,5% mensual, ya con la devaluación de arranque del gobierno de Milei, pero la espiral venía de todo el año.",
+      "En la gramática de Gerchunoff y Llach, este tramo es aleccionador: no hace falta una gran euforia previa para completar un péndulo. A veces el 'atajo' es solo administrar escasez de dólares y conflicto distributivo sin un ancla: precios regulados acá, tipo de cambio oficial atrasado allá, emisión para tapar el fisco. El resultado no fue el pleno empleo glorioso de 2003-07 sino <b>estanflación</b> con pobreza al alza y una moneda que perdió funciones a velocidad de hiper. El retorno kirchnerista de 2019 ilusionó poco en lo económico y terminó al borde del abismo inflacionario: desencanto sin la fiesta."
+    ],
+    "example": {
+      "title": "Brecha y góndola",
+      "body": "Con el dólar oficial barato y el blue (o el CCL) mucho más caro, importar al oficial es un regalo… si te dan el permiso; exportar liquidar al oficial es un castigo. Las empresas remarcan mirando el dólar libre y la inflación pasada; los salarios corren detrás; el BCRA emite y vende reservas o impone más cepo. En 2023 esa rueda giró tan rápido que el IPC anual superó el 210%. No hace falta una hiper de 1989 para que la plata deje de ser unidad de cuenta confiable: con 10% mensual sostenido, la economía ya se dolariza de hecho y el contrato social se quema en la góndola."
+    },
+    "check": [
+      {
+        "type": "mcq",
+        "q": "¿Qué caracteriza mejor al tramo 2019-2023 en este mapa de ilusión y desencanto?",
+        "options": [
+          "Un boom exportador con inflación de un dígito y superávits gemelos al estilo 2004",
+          "La adopción exitosa y permanente de la convertibilidad uno a uno",
+          "Poca ilusión de prosperidad, cepo y brecha cambiaria, y una aceleración inflacionaria que cerró 2023 en 211,4% anual",
+          "La eliminación total del déficit fiscal en el primer año sin emisión monetaria"
+        ],
+        "answer": 2,
+        "explain": "A diferencia de 2003-07, no hubo gran euforia de crecimiento estable; dominaron la restricción de divisas y una inflación que escaló hasta 211,4% en 2023 (INDEC)."
+      },
+      {
+        "type": "open",
+        "q": "¿Por qué se puede decir que este retorno 'casi no ilusionó' y sin embargo cierra un ciclo de desencanto?",
+        "criterion": "Podés describir por qué 2019-2023 generó poca ilusión de prosperidad y cómo se llegó a una inflación anual superior al 210%.",
+        "model": "Porque no generó un boom creíble de crecimiento y salarios como 2003-07, pero sí profundizó desequilibrios (cepo, emisión, brecha) hasta una inflación extrema (211% en 2023), es decir desencanto macro sin la fiesta previa."
+      }
+    ],
+    "takeaway": "Hay desencantos sin ilusión previa: administrar la escasez de dólares con cepo y emisión también termina en la góndola."
   }
 };

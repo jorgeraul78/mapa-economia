@@ -119,6 +119,11 @@ síntesis: `ciclo_ilusion_desencanto`
 `reforma_financiera_77` → `tablita` → `decada_perdida` → (soft) `plan_austral`  
 `posconvertibilidad` → `kirchnerismo` → (soft) `ciclo_ilusion_desencanto`
 
+**Sub-rama 3 — post-2015 (extensión más allá del libro)**
+
+`kirchnerismo` → `macri_gradualismo` → `fernandez_inflacion` → (soft) `ciclo_ilusion_desencanto`  
+(Macri: salida del cepo, gradualismo con deuda, corrida 2018 y FMI; Fernández: poca ilusión, cepo e inflación 211,4% en 2023.)
+
 ---
 
 ## Esquema de una lección

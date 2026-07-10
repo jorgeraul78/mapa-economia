@@ -1,11 +1,11 @@
 {
   "meta": {
     "name": "Taxonomía de Economía",
-    "version": "0.3",
+    "version": "0.4",
     "level": "introductorio / conceptual",
     "language": "es",
     "inspired_by": "withmarbleapp/os-taxonomy",
-    "description": "Grafo de prerrequisitos de conceptos económicos: micro, macro, finanzas, economía política e historia, historia económica argentina y comportamiento."
+    "description": "Grafo de prerrequisitos de conceptos económicos: micro, macro, finanzas, economía política e historia, historia económica argentina (hasta 2023) y comportamiento."
   },
   "topics": [
     {
@@ -763,6 +763,24 @@
       "tier": 5,
       "type": "conceptual",
       "mastery": "Podés trazar el arco de ilusión y desencanto del kirchnerismo: recuperación inicial, tensiones (inflación, apreciación, 125) y agotamiento con cepo y restricción externa."
+    },
+    {
+      "id": "macri_gradualismo",
+      "title": "Macri: gradualismo y caída 2018",
+      "description": "La ilusión de 2015: salida del cepo, reinserción financiera y baja gradual del déficit. El desencanto de 2018-19: corrida, megadevaluación, el mayor préstamo de la historia del FMI y el regreso de los controles cambiarios.",
+      "subject": "Historia Económica Argentina",
+      "tier": 5,
+      "type": "conceptual",
+      "mastery": "Podés explicar el gradualismo macrista como atajo de financiamiento externo y por qué la crisis cambiaria de 2018-19 cortó esa ilusión."
+    },
+    {
+      "id": "fernandez_inflacion",
+      "title": "Retorno kirchnerista e inflación 2019-2023",
+      "description": "El gobierno Fernández-Fernández: poca ilusión de boom, cepo endurecido, múltiples tipos de cambio y una espiral de precios que cerró 2023 en 211,4% anual —la más alta desde 1991— al borde de la dinámica hiperinflacionaria.",
+      "subject": "Historia Económica Argentina",
+      "tier": 5,
+      "type": "conceptual",
+      "mastery": "Podés describir por qué 2019-2023 generó poca ilusión de prosperidad y cómo se llegó a una inflación anual superior al 210%."
     }
   ],
   "dependencies": [
@@ -1827,6 +1845,72 @@
       "prerequisite": "peronismo_economico",
       "type": "soft",
       "reason": "Las políticas de precios al agro y el consumo interno debilitaron exportaciones y anticiparon el cuello de botella de divisas."
+    },
+    {
+      "topic": "macri_gradualismo",
+      "prerequisite": "kirchnerismo",
+      "type": "hard",
+      "reason": "Hereda el cepo, la inflación reprimida y los desequilibrios del ciclo 2003-2015."
+    },
+    {
+      "topic": "macri_gradualismo",
+      "prerequisite": "tipo_cambio",
+      "type": "hard",
+      "reason": "La unificación cambiaria de 2015 y la corrida de 2018 son el eje del ciclo."
+    },
+    {
+      "topic": "macri_gradualismo",
+      "prerequisite": "balanza_pagos",
+      "type": "hard",
+      "reason": "El modelo se financió con entrada de capitales y deuda hasta que se cortó el crédito."
+    },
+    {
+      "topic": "macri_gradualismo",
+      "prerequisite": "expectativas",
+      "type": "soft",
+      "reason": "La confianza de los mercados y su evaporación en 2018 definen el éxito y el fracaso del gradualismo."
+    },
+    {
+      "topic": "macri_gradualismo",
+      "prerequisite": "tasas_interes",
+      "type": "soft",
+      "reason": "Lebacs, tasas de hasta 60% y el ancla monetaria post-FMI fueron herramientas centrales."
+    },
+    {
+      "topic": "fernandez_inflacion",
+      "prerequisite": "macri_gradualismo",
+      "type": "hard",
+      "reason": "Asume tras la crisis 2018-19, con cepo restablecido, deuda con el FMI e inflación ya alta."
+    },
+    {
+      "topic": "fernandez_inflacion",
+      "prerequisite": "hiperinflacion",
+      "type": "hard",
+      "reason": "El tramo final se acerca a dinámicas de inflación desbocada (211% en 2023)."
+    },
+    {
+      "topic": "fernandez_inflacion",
+      "prerequisite": "restriccion_externa",
+      "type": "soft",
+      "reason": "Escasez de divisas, cepo y brecha cambiaria reeditaron el cuello de botella clásico."
+    },
+    {
+      "topic": "fernandez_inflacion",
+      "prerequisite": "politica_fiscal",
+      "type": "soft",
+      "reason": "Déficit, emisión y tensiones con el programa del FMI alimentaron la espiral de precios."
+    },
+    {
+      "topic": "ciclo_ilusion_desencanto",
+      "prerequisite": "macri_gradualismo",
+      "type": "soft",
+      "reason": "Es un ciclo completo reciente de ilusión (reinserción) y desencanto (corrida y FMI)."
+    },
+    {
+      "topic": "ciclo_ilusion_desencanto",
+      "prerequisite": "fernandez_inflacion",
+      "type": "soft",
+      "reason": "Muestra el caso de un retorno que casi no generó ilusión y terminó en inflación extrema."
     }
   ]
 }
