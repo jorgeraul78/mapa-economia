@@ -2345,5 +2345,311 @@ window.LESSONS = {
       }
     ],
     "takeaway": "No evaluamos niveles sino cambios contra una referencia — y como perder duele el doble que ganar, somos cautos en las ganancias y temerarios en las pérdidas: al revés de lo que más nos convendría."
+  },
+  "modelo_agroexportador": {
+    "id": "modelo_agroexportador",
+    "hook": "Entre 1880 y 1914 la Argentina creció como pocos países del planeta: la pampa se llenó de inmigrantes, ferrocarriles y vacas, y el mundo le compraba casi todo lo que producía. No fue magia: fue un modelo.",
+    "explanation": [
+      "El <b>modelo agroexportador</b> fue el patrón de crecimiento de la Argentina entre la consolidación del Estado nacional (alrededor de 1880) y la Gran Depresión. La idea central era simple y potente: especializarse en lo que la pampa hacía mejor —granos y carnes— y venderlo al mercado mundial, sobre todo a una Inglaterra industrial que necesitaba alimentos e importaba materias primas. En la otra dirección entraban manufacturas, capitales y personas.",
+      "Tres ingredientes lo hicieron posible. La <b>inmigración</b> masiva resolvió la escasez de mano de obra en un territorio despoblado. El <b>capital extranjero</b> —especialmente británico— financió ferrocarriles, frigoríficos y puertos que conectaron el interior con el Atlántico. Y la <b>tierra pampeana</b>, recién integrada a la economía de mercado, ofreció una productividad natural difícil de igualar. Como en tu lección de ventaja comparativa: producir lo que el mundo valora más, importar lo que sale caro fabricar en casa.",
+      "Gerchunoff y Llach insisten en que ese despegue no fue solo 'destino geográfico': hizo falta un Estado ya pacificado, una generación dirigente optimista ('Paz y Administración') y un contexto internacional de primera globalización —comercio abierto, oro y capitales que cruzaban fronteras. El modelo generó euforia con el Centenario, pero también desigualdad rural y una dependencia profunda de los precios y la demanda del exterior. Cuando el mundo se cerró en los 30, el modelo dejó de ser una receta y pasó a ser un problema."
+    ],
+    "example": {
+      "title": "Trigo, vacas y rieles",
+      "body": "Sin ferrocarril, el cereal de la pampa no llegaba al puerto a un costo competitivo. Sin frigorífico y barcos frigoríficos, la carne de calidad no viajaba a Londres. El capital británico puso los rieles y buena parte de la logística; la Argentina puso la tierra y el trabajo inmigrante. El resultado: en pocas décadas el país pasó de ser un territorio semi-vacío a uno de los grandes graneros del mundo. El reverso de esa medalla es que, si caían los precios del trigo o se cortaba el crédito de Londres, toda la economía se sacudía."
+    },
+    "check": [
+      {
+        "type": "mcq",
+        "q": "Según la lógica del modelo agroexportador argentino (1880-1930), ¿cuál era el motor principal del crecimiento?",
+        "options": [
+          "La especialización en exportaciones primarias pampeanas insertada en la economía mundial",
+          "La industrialización pesada financiada por el Estado",
+          "La sustitución total de importaciones con aranceles altos",
+          "El aislamiento comercial para proteger el empleo urbano"
+        ],
+        "answer": 0,
+        "explain": "El modelo se basaba en vender granos y carnes al mundo y atraer capital e inmigrantes; no en cerrarse ni en industrialización pesada estatal, que vendrían después."
+      },
+      {
+        "type": "open",
+        "q": "¿Por qué un modelo tan exitoso en 1910 dejó a la Argentina tan expuesta cuando llegó la crisis de 1929?",
+        "criterion": "Podés explicar cómo la inserción agroexportadora impulsó el crecimiento argentino hasta 1930 y por qué quedó expuesta a los shocks del comercio y el capital externos.",
+        "model": "Porque el crecimiento dependía de la demanda y los precios externos de pocos productos primarios y del ingreso de capitales. Al cerrarse el comercio y secarse el financiamiento internacional, se cortaba el motor mismo del modelo: exportar e importar capital."
+      }
+    ],
+    "takeaway": "La belle époque argentina fue especialización abierta al mundo: prosperidad rápida, y vulnerabilidad del mismo tamaño."
+  },
+  "isi": {
+    "id": "isi",
+    "hook": "Cuando el mundo dejó de comprarle a la Argentina como antes, el país empezó a fabricarse a sí mismo lo que ya no podía importar tan fácil. Esa respuesta se llama industrialización por sustitución de importaciones.",
+    "explanation": [
+      "La <b>industrialización por sustitución de importaciones</b> (ISI) es el proceso por el cual un país produce localmente bienes que antes compraba afuera. En la Argentina no nació de un plan quinquenal único: se robusteció en los años 30, cuando la <b>Gran Depresión</b> derrumbó precios de exportación, cerró mercados y forzó devaluación, aranceles y <b>control de cambios</b>. The Economist ya en 1936 se sorprendía de una industria argentina que, pese a no tener carbón ni hierro, crecía para el mercado interno detrás de esa protección.",
+      "La lógica económica es la del cierre forzado convertido en oportunidad: con el peso devaluado y las importaciones caras o racionadas, fabricar textiles, metalurgia liviana, vidrio o aparatos eléctricos en el país pasaba a ser rentable. Gerchunoff y Llach subrayan las <b>continuidades</b> —la industria ya venía creciendo desde antes— pero también el salto: a partir de la crisis, el proceso se consolidó. Más tarde, el peronismo lo profundizó con un Estado activo, redistribución hacia salarios urbanos y un impulso industrialista explícito.",
+      "La promesa de la ISI era moderna y democrática a la vez: empleo en la ciudad, salarios más altos y menos dependencia de importar manufacturas. Su talón de Aquiles, que el libro desarrolla con detalle, es que sustituir bienes de consumo no elimina la necesidad de importar <b>insumos, combustibles y maquinaria</b>. Producir 'casi todo' y exportar 'casi nada' puede mejorar el empleo de corto plazo… y al mismo tiempo sembrar la restricción de dólares del mediano plazo."
+    ],
+    "example": {
+      "title": "De importar zapatos a fabricarlos (y seguir importando el acero)",
+      "body": "Imaginá una fábrica de electrodomésticos en el Gran Buenos Aires en 1948. El arancel y el control de cambios hacen carísimo traer la heladera terminada de afuera, así que conviene armarla acá. Pero el motor, la chapa y el petróleo para la energía siguen dependiendo, en buena medida, del exterior. Cada vez que la fábrica vende más, necesita más dólares de insumos. Si el campo no genera suficientes exportaciones, el 'éxito' industrial se come las reservas: ahí nace la tensión estructural de la ISI argentina."
+    },
+    "check": [
+      {
+        "type": "mcq",
+        "q": "¿Qué combinación de circunstancias impulsó la ISI en la Argentina de los años 30?",
+        "options": [
+          "Superávit externo permanente y libre comercio pleno",
+          "Caída de mercados externos, devaluación, aranceles y control de cambios que encarecieron lo importado",
+          "Descubrimiento de hierro y carbón baratos en la pampa",
+          "Adopción del patrón oro con tipo de cambio inflexible"
+        ],
+        "answer": 1,
+        "explain": "La Depresión cerró mercados y abaratamiento de exportaciones; devaluación, tarifas y control de cambios protegieron y estimularon la industria para el mercado interno."
+      },
+      {
+        "type": "open",
+        "q": "¿En qué sentido la ISI podía 'funcionar' en el corto plazo y al mismo tiempo crear un problema de largo plazo?",
+        "criterion": "Podés describir el mecanismo de la ISI argentina y por qué respondió al cierre de mercados de los años 30 y al agotamiento del modelo agroexportador.",
+        "model": "En el corto plazo genera empleo, sustituye manufacturas importadas y distribuye prosperidad urbana. En el largo, al depender de insumos y bienes de capital importados sin un salto exportador equivalente, agrava la escasez de divisas cuando la economía crece."
+      }
+    ],
+    "takeaway": "Sustituir importaciones crea industria y empleo; no crea, por sí sola, los dólares que esa industria necesita para seguir creciendo."
+  },
+  "restriccion_externa": {
+    "id": "restriccion_externa",
+    "hook": "En la Argentina de posguerra había un patrón casi mecánico: la economía arrancaba, crecía un par de años… y se quedaba sin dólares. No era mala suerte: era un cuello de botella.",
+    "explanation": [
+      "La <b>restricción externa</b> es el límite que impone la escasez de <b>divisas</b> al crecimiento. En una economía que necesita importar para producir, no alcanza con tener capacidad ociosa o demanda interna: hacen falta dólares (o monedas convertibles) para pagar insumos, combustibles y bienes de capital. Cuando las <b>exportaciones</b> no alcanzan y no hay financiamiento externo estable, el auge se corta.",
+      "Gerchunoff y Llach muestran cómo, en la Argentina industrializada de los 40 y 50, el mecanismo era casi contable. La recuperación de la demanda industrial no disparaba tanto la importación de bienes de consumo como la de <b>materias primas, metales, químicos y petróleo</b>. Al mismo tiempo, las exportaciones agropecuarias estaban estancadas o volátiles —por políticas internas que las habían desalentado y por un mundo menos abierto—. En 1955 el país exportaba, en moneda constante, mucho menos que en los años 20. El Informe Prebisch de 1955 clavó el diagnóstico: sin más exportaciones y sin industrias básicas, el desarrollo se ahogaba en la balanza de pagos.",
+      "De ahí el patrón que los argentinos aprendieron a llamar, más tarde, <b>stop-go</b>: fases de expansión (go) que agotan reservas, seguidas de devaluación, ajuste y recesión (stop) para recomponer la cuenta externa. Los controles de cambio y los permisos de importación podían postergar el problema; no lo resolvían. Superar de verdad la restricción exigía, según el propio libro, una combinación difícil: exportar más e industrializar 'hacia atrás' lo que más dólares se comía."
+    ],
+    "example": {
+      "title": "El semáforo de las reservas",
+      "body": "Pensá en 1951-1955. Dos años de déficit comercial fuerte, un plan de austeridad, una cosecha excepcional que da superávit… y en 1955 el rojo vuelve apenas se recupera la actividad. No es que 'de pronto' la gente quiera más autos importados: es que las fábricas, para producir más para el mercado interno, piden más insumos importados. Las reservas del Banco Central actúan como el tanque de nafta de un auto que acelera en ciudad: cuanto más pisás, antes se vacía si no cargás. Esa nafta son las divisas de exportación."
+    },
+    "check": [
+      {
+        "type": "mcq",
+        "q": "En la Argentina de posguerra, ¿por qué un auge industrial podía empeorar la balanza de pagos?",
+        "options": [
+          "Porque la industria exportaba todo su producto y sobraban dólares",
+          "Porque el tipo de cambio flotante eliminaba cualquier escasez de divisas",
+          "Porque producir más exigía importar insumos y bienes de capital que las exportaciones no financiaban del todo",
+          "Porque el agro exportaba de más y sobraban reservas de forma permanente"
+        ],
+        "answer": 2,
+        "explain": "El crecimiento industrial elevaba la demanda de importaciones intermedias y de capital; sin un salto exportador equivalente, caían las reservas y había que frenar."
+      },
+      {
+        "type": "open",
+        "q": "¿Qué es el patrón stop-go y cómo se conecta con la restricción externa?",
+        "criterion": "Podés explicar por qué, en la Argentina industrializada de posguerra, crecer generaba déficit de dólares y forzaba frenos recesivos (el patrón stop-go).",
+        "model": "Es la alternancia de expansiones que agotan divisas y ajustes recesivos (devaluación, restricciones) para reconstituir la balanza de pagos. La restricción externa es el cuello de botella que hace inevitable ese freno cuando no hay suficientes dólares."
+      }
+    ],
+    "takeaway": "Sin dólares para importar insumos, el crecimiento industrial se muerde la cola: el auge fabrica su propio freno."
+  },
+  "desarrollismo": {
+    "id": "desarrollismo",
+    "hook": "Frondizi y Frigerio resumieron su apuesta en una fórmula casi publicitaria: petróleo + carne = acero + industria química. Detrás había un plan completo para 'terminar' de industrializar el país.",
+    "explanation": [
+      "El <b>desarrollismo</b> argentino —encarnado en el gobierno de Arturo Frondizi (1958-1962) y en el ideario de Rogelio Frigerio— partía de un diagnóstico de época: los países que solo exportan primarios se estancan porque los precios de esos productos juegan en contra (el pesimismo de Prebisch). Desarrollarse era, entonces, volverse una economía industrial completa. La Argentina ya tenía industria liviana; faltaba el empuje <b>vertical</b>: acoples hacia atrás en insumos y bienes de capital.",
+      "Las prioridades del programa eran nítidas. Primero, <b>petróleo y gas</b> para dejar de gastar un quinto de las importaciones en combustibles. Después, <b>siderurgia</b> (SOMISA), química y petroquímica, automotores, energía eléctrica, rutas. El agro no estaba en el centro: se lo veía limitado por atraso tecnológico y por mercados externos poco promisorios, no como motor del modelo. Para financiar ese salto, el desarrollismo abrió la puerta al <b>capital extranjero</b> —contratos petroleros incluidos—, en tensión con el nacionalismo económico de parte de la opinión pública.",
+      "Gerchunoff y Llach muestran la tensión típica del ciclo: el primer año combinó aumentos salariales, expansión monetaria y déficit alto (cerca del 9% del PBI) con controles a la importación orientados al proyecto industrial. La inflación y el drenaje de reservas no tardaron; vino el giro a la estabilización. El desarrollismo es, en el libro, un intento ambicioso de resolver de una vez la restricción externa… en medio de una política argentina todavía de democracia a medias y proscripciones."
+    ],
+    "example": {
+      "title": "La batalla del petróleo",
+      "body": "En 1958 el gobierno firmó contratos con empresas petroleras extranjeras para acelerar la producción local. La apuesta era contable y política a la vez: cada barril sacado en la Argentina era un dólar que no salía a comprar combustible afuera, y ese dólar podía ir a máquinas y plantas. La oposición nacionalista lo leyó como entrega; el desarrollismo lo leyó como atajo necesario hacia la integración industrial. Pocos episodios resumen tan bien la tensión del período entre soberanía simbólica y escasez real de divisas."
+    },
+    "check": [
+      {
+        "type": "mcq",
+        "q": "¿Cuál era la idea central del desarrollismo frondicista respecto de la industria argentina?",
+        "options": [
+          "Abandonar por completo la industria y volver solo al agro",
+          "Dolarizar la economía y fijar el peso por ley al dólar",
+          "Congelar todos los precios por decreto sin tocar la estructura productiva",
+          "Completar la industrialización hacia insumos y bienes de capital (petróleo, acero, química) con inversión externa"
+        ],
+        "answer": 3,
+        "explain": "El desarrollismo buscaba una economía industrial integrada 'hacia atrás', priorizando ramas básicas y atrayendo capital extranjero para romper la restricción externa."
+      },
+      {
+        "type": "open",
+        "q": "¿Por qué el desarrollismo miraba con escepticismo un modelo de crecimiento centrado en el agro?",
+        "criterion": "Podés resumir el diagnóstico desarrollista y por qué apostó a las industrias básicas y al capital externo como vía para superar el estancamiento.",
+        "model": "Por el pesimismo sobre los precios y mercados de productos primarios y porque veía el estancamiento agropecuario como parte del atraso tecnológico general; la modernidad se definía como industrialización completa, no como vuelta al modelo agroexportador."
+      }
+    ],
+    "takeaway": "El desarrollismo quiso fabricar en casa los dólares que faltaban: menos petróleo importado, más industria pesada… y más capital extranjero."
+  },
+  "plan_austral": {
+    "id": "plan_austral",
+    "hook": "En junio de 1985 los precios subían más del 30% al mes y el país olía a hiper. Una noche de viernes, Alfonsín anunció una moneda nueva y un congelamiento general. Se llamó Plan Austral.",
+    "explanation": [
+      "El <b>Plan Austral</b> (junio de 1985) fue una estabilización <b>heterodoxa</b>: no confió solo en recortar dinero y gasto, sino en cortar de un tajo la <b>inflación inercial</b>. El equipo de Sourrouille partía de una idea clave: en una economía largamente inflacionaria, la inflación pasada 'coordina' las expectativas de la inflación presente. Salarios y precios se remarcan mirando el mes anterior; el gradualismo es como bombardear de a poco una base que se rearma entre ataque y ataque.",
+      "La receta buscaba un <b>shock de coordinación</b>. Nueva moneda (el austral), tipo de cambio fijo, congelamiento de precios y salarios, y la promesa central de que el Banco Central dejaría de emitir para financiar al Tesoro. Antes del anuncio se 'precorrigieron' precios retrasados (tarifas, tipo de cambio, carne) para que no explotaran después. Se sumó el <b>desagio</b> en contratos y un paquete fiscal (impuestos, 'ahorro forzoso') pensado para bajar el déficit a un nivel financiable sin emisión.",
+      "El éxito inicial fue espectacular: en pocos meses la inflación mensual cayó a niveles que la Argentina no veía hacía años, sin necesidad de policías de precios en cada góndola. Gerchunoff y Llach subrayan el círculo virtuoso de la remonetización y la mejora real de la recaudación al frenarse el efecto Olivera-Tanzi. El desencanto vino después: sin consolidar del todo los fundamentos fiscales y con shocks externos adversos, la inercia volvió a ganar terreno. El Austral enseña que las expectativas importan… y que no bastan solas."
+    ],
+    "example": {
+      "title": "Cortar el dominó",
+      "body": "Imaginá que todos remarcan el 25% porque el mes pasado fue 25%. Si de golpe una señal creíble dice 'el tipo de cambio está fijo, los precios están congelados y no hay más emisión para el fisco', cada uno puede bajar la guardia sin sentir que se queda atrás. Eso intentó el Austral: levantar la última ficha del dominó caído para que se levanten las demás. Funcionó mientras la señal fue creíble. Cuando el déficit y las dudas reaparecieron, el dominó volvió a tumbarse ficha por ficha."
+    },
+    "check": [
+      {
+        "type": "mcq",
+        "q": "¿Qué problema central atacaba el Plan Austral con el congelamiento y la nueva moneda?",
+        "options": [
+          "La inflación inercial y la coordinación de expectativas en una economía indexada de hecho",
+          "La deflación crónica y el desempleo por falta de demanda",
+          "La escasez de tierras cultivables en la pampa",
+          "El superávit fiscal excesivo que generaba aprecio del tipo de cambio"
+        ],
+        "answer": 0,
+        "explain": "El diagnóstico del equipo de Sourrouille ponía el foco en la inercia: la inflación pasada coordinaba expectativas; había que cortar ese nexo con un ancla nominal creíble."
+      },
+      {
+        "type": "open",
+        "q": "¿Por qué un plan que 'gana la primera batalla' contra la inflación puede igual fracasar meses o años después?",
+        "criterion": "Podés explicar la lógica del Austral —inercia, expectativas y anclas nominales— y por qué el éxito inicial no bastó sin consolidar el equilibrio fiscal.",
+        "model": "Porque el shock de expectativas baja la inflación de golpe, pero si el déficit fiscal y la emisión vuelven a crecer, o faltan anclas creíbles en el tiempo, se reactivan la inercia y la desconfianza. Sin fundamentos, el círculo virtuoso se revierte."
+      }
+    ],
+    "takeaway": "Congelar precios puede coordinar expectativas; solo el equilibrio fiscal sostiene la coordinación cuando pasa el efecto sorpresa."
+  },
+  "hiperinflacion_89": {
+    "id": "hiperinflacion_89",
+    "hook": "Entre febrero y mayo de 1989 la inflación minorista casi se duplicó cada mes: 9%, después decenas, después casi 80% en un solo mes. No fue un mal mes: fue el final de un régimen monetario.",
+    "explanation": [
+      "La <b>hiperinflación de 1989</b> coronó una década de alta inflación y planes que funcionaban un tiempo y se deshacían. Tras el desgaste del Austral y el colapso del <b>Plan Primavera</b> en febrero, la corrida al dólar devaluó el peso a velocidades brutales (cerca de 200% en abril, más de 100% en mayo). Con una economía ya acostumbrada a remarcar siguiendo al tipo de cambio, el salto del dólar se trasladó en cascada a los precios.",
+      "Gerchunoff y Llach describen un proceso de <b>retroalimentación</b>. No solo 'había demasiada emisión' en abstracto: el Estado pagaba una deuda interna cada vez más cara, indexada o atada al dólar, y lo hacía emitiendo. Cada sector se defendía de un modo que empeoraba el conjunto: trabajadores pedían adelantos y sumas extraordinarias; empresas remarcaban preventivamente o acumulaban stocks; exportadores retenían mercadería; se postergaban impuestos y tarifas. La desconfianza política —Menem ya era el presidente electo y los plazos fijos vencían concentrados hacia el final del gobierno de Alfonsín— agregaba nafta financiera al incendio.",
+      "El resultado fue más que un número de inflación: fue una crisis de régimen. Se sucedieron ministros y esquemas cambiarios sin restaurar credibilidad. Alfonsín anticipó la entrega del mando. El mandato que recibió Menem fue, ante todo, económico: salir de la hiper. Esa experiencia moldeó la década siguiente y preparó el terreno mental y político para un ancla mucho más rígida: la convertibilidad."
+    ],
+    "example": {
+      "title": "Duplicar cada mes",
+      "body": "Si los precios suben 10% en febrero, 20% en marzo, 40% en abril y casi 80% en mayo, no estás ante 'inflación alta': estás ante una dinámica explosiva. El sueldo de principio de mes no llega a fin de mes; el comerciante prefiere stock a plata en el cajón; el ahorrista huye al dólar. En 1989 esa lógica se apoderó de la economía argentina y volvió inmanejable la transición democrática ordinaria: la política quedó rehén del reloj de la hiper."
+    },
+    "check": [
+      {
+        "type": "mcq",
+        "q": "Según el relato de Gerchunoff y Llach, ¿qué elemento fue central en la aceleración hiperinflacionaria de 1989?",
+        "options": [
+          "Un superávit fiscal récord que sobraba de pesos en la economía",
+          "La corrida al dólar, el pasaje a precios y la retroalimentación entre deuda interna, emisión y conductas defensivas",
+          "La adopción inmediata de la convertibilidad uno a uno",
+          "La caída del precio internacional del petróleo que abarataba todos los costos"
+        ],
+        "answer": 1,
+        "explain": "El libro describe devaluación brutal, traslado a precios, deuda interna cara pagada con emisión y estrategias defensivas que realimentaban la espiral."
+      },
+      {
+        "type": "open",
+        "q": "¿Por qué la hiper de 1989 no se entiende solo como 'un problema del mes de mayo'?",
+        "criterion": "Podés trazar la cadena desde el agotamiento de los planes de los 80 hasta la hiperinflación de 1989 y su impacto sobre la política económica posterior.",
+        "model": "Porque corona el agotamiento de los planes de estabilización de los 80, un Estado sin financiamiento sólido y una dinámica de desconfianza y indexación de hecho. Su legado político fue desplazar el mandato democrático hacia la prioridad de matar la inflación."
+      }
+    ],
+    "takeaway": "La hiper de 1989 fue el final de un régimen: cuando todos se defienden del precio de mañana, el sistema de precios deja de coordinar."
+  },
+  "convertibilidad": {
+    "id": "convertibilidad",
+    "hook": "En abril de 1991 la Argentina ató el peso al dólar por ley y le ordenó al Banco Central no emitir sin respaldo. Como Ulises al mástil: se ató a propósito para no ceder al canto de las sirenas.",
+    "explanation": [
+      "La <b>convertibilidad</b> (Ley de Convertibilidad, abril de 1991) fue más que un tipo de cambio fijo. Obligó al Banco Central a respaldar la base monetaria con reservas en divisas (y cierta proporción de títulos en dólares) al tipo de cambio legal —diez mil australes por dólar, luego un peso = un dólar—. Emitir sin entrada de dólares quedaba, en la práctica, prohibido. Gerchunoff y Llach lo leen como una estrategia de <b>autoatamiento</b>: con la reputación monetaria destrozada por la hiper, el gobierno renunció a la política monetaria para hacer creíble la disciplina.",
+      "El éxito antiinflacionario fue contundente. Tras el arranque, la inflación mensual cayó bajo el 1% y en pocos años se habló de inflación casi nula. La estabilidad devolvió crédito, subió el poder de compra al desaparecer el impuesto inflacionario y, en un contexto mundial de capitales abundantes, alimentó un boom: el producto creció a tasas excepcionales entre 1990 y 1994. En paralelo corrieron la <b>apertura comercial</b> y las privatizaciones: el ancla cambiaria venía en un paquete de reforma del Estado y revalorización del mercado.",
+      "La otra cara era la rigidez. Sin devaluar, la competitividad dependía de productividad, costos e impuestos. La balanza comercial se deterioró con el auge de demanda; el desempleo subió aun en expansión. Y cuando el financiamiento externo se cortaba —como con el efecto Tequila en 1995— el régimen se comportaba como el viejo patrón oro: el ajuste entraba por tasas, crédito y recesión, no por el tipo de cambio. La convertibilidad mató la inflación; amarró el ciclo argentino al humor de los capitales."
+    ],
+    "example": {
+      "title": "Un peso, un dólar… y nada de maquinita",
+      "body": "Bajo convertibilidad, si querías más pesos en la economía, en principio necesitabas más dólares en el Banco Central. Eso tranquilizó a quien había vivido 1989: la emisión ya no era el atajo fiscal de siempre. Pero también significó que una salida de capitales no solo encarecía el crédito: contráía la base monetaria y profundizaba la recesión. La misma regla que daba credibilidad quitaba el amortiguador del tipo de cambio flexible."
+    },
+    "check": [
+      {
+        "type": "mcq",
+        "q": "¿Qué rasgo distinguía a la convertibilidad de un simple anuncio de 'tipo de cambio fijo'?",
+        "options": [
+          "Permitía emitir sin límite mientras el ministro lo pidiera",
+          "Prohibía por completo el comercio exterior",
+          "Respaldaba por ley la base monetaria con reservas y fijaba el tipo de cambio en la legislación, renunciando a la política monetaria autónoma",
+          "Indexaba todos los salarios al precio de la carne"
+        ],
+        "answer": 2,
+        "explain": "La ley amarraba emisión a reservas y daba al tipo de cambio un ancla legal; era un autoatamiento de la autoridad monetaria, no solo una promesa verbal."
+      },
+      {
+        "type": "open",
+        "q": "¿Por qué la convertibilidad podía ser a la vez un éxito antiinflacionario y un régimen de alto riesgo macroeconómico?",
+        "criterion": "Podés explicar cómo la convertibilidad ancló los precios, qué renunciaba el Estado al adoptarla y por qué su rigidez era a la vez su fortaleza y su riesgo.",
+        "model": "Porque el ancla rígida coordina precios y expectativas (éxito), pero impide devaluar y somete el ciclo a entradas y salidas de capital: el ajuste recae en tasas, actividad y empleo (riesgo)."
+      }
+    ],
+    "takeaway": "La convertibilidad compró credibilidad renunciando a la maquinita: estabilidad de precios a cambio de rigidez cíclica."
+  },
+  "crisis_2001": {
+    "id": "crisis_2001",
+    "hook": "En diciembre de 2001 la Argentina tenía corralito, saqueos, cinco presidentes en días y el final del uno a uno. No fue un mal trimestre: fue el derrumbe de un régimen que había sido, poco antes, el orgullo estabilizador del país.",
+    "explanation": [
+      "La <b>crisis de 2001</b> cierra el ciclo de la convertibilidad. Después del auge de los 90, la economía arrastró una recesión larga desde 1998, con competitividad erosionada (devaluaciones de socios, productividad floja, carga tributaria), deuda pública creciente y un <b>riesgo país</b> que encarecía todo refinanciamiento. El gobierno de la Alianza apostó primero a la austeridad fiscal para bajar el riesgo; no reactivó. En 2001 volvió Cavallo: aranceles selectivos, promesa de canasta dólar-euro, canjes de deuda, 'déficit cero'. Los mercados leyeron debilidad del compromiso convertibilizado.",
+      "El desenlace fue financiero y político a la vez. La corrida de depósitos se aceleró; el gobierno restringió el retiro de efectivo (<b>corralito</b>): los pesos en el banco seguían 'convertibles' con dólares en el banco, pero se rompió la convertibilidad entre el efectivo y los depósitos. En diciembre, protestas, represión y saqueos: renuncian Cavallo y De la Rúa. El justicialismo asume; a inicios de 2002 se sale de la convertibilidad, con devaluación y el mayor default soberano de la historia hasta entonces.",
+      "Gerchunoff y Llach se preguntan por qué cayó un sistema que había gozado de apoyo popular prolongado. Las respuestas combinan rigidez cambiaria, endeudamiento, shocks externos y deterioro institucional. El libro no vende una sola culpable: muestra una profecía autocumplida en la que la expectativa de devaluación y default precipita la corrida que hace inevitables devaluación y default. Fue, en su relato, la 'gran depresión' argentina de comienzos de siglo."
+    ],
+    "example": {
+      "title": "Cuando el ancla se vuelve cadena",
+      "body": "Tenés deudas en dólares, precios internos que no bajan lo suficiente y socios comerciales que ya devaluaron. Sin poder devaluar el peso, la única forma de 'ajustar' es con recesión, recortes y tasas altísimas. Si además los depositantes temen un cambio de régimen, corren al banco. El corralito intenta parar la corrida… y confirma el pánico. Así, una regla diseñada para dar confianza termina, en el límite, destruyendo la confianza que le quedaba."
+    },
+    "check": [
+      {
+        "type": "mcq",
+        "q": "¿Qué secuencia describe mejor el desenlace de 2001 en el relato del libro?",
+        "options": [
+          "Boom exportador, superávit gemelos y revaluación voluntaria del peso",
+          "Hiperinflación mensual del 80% idéntica a la de 1989 sin crisis bancaria",
+          "Adopción del patrón oro clásico con éxito inmediato de empleo",
+          "Recesión y deuda, corrida bancaria, corralito, colapso político, fin de la convertibilidad y default"
+        ],
+        "answer": 3,
+        "explain": "La crisis combina recesión prolongada, tensión de deuda y depósitos, corralito, renuncias y la salida desordenada del régimen convertibilizado."
+      },
+      {
+        "type": "open",
+        "q": "¿En qué sentido la expectativa de que 'la convertibilidad se cae' ayudó a que se cayera?",
+        "criterion": "Podés reconstruir por qué el régimen convertibilizado se volvió insostenible y qué detonó el colapso económico y político de 2001.",
+        "model": "Si depositantes e inversores creen que habrá devaluación o default, sacan depósitos y capital, sube el riesgo país y se secan el crédito y las reservas. Esa corrida vuelve insostenible el régimen y cumple la profecía."
+      }
+    ],
+    "takeaway": "2001 fue el día en que el ancla dejó de anclar: sin credibilidad ni financiamiento, la convertibilidad se derrumbó sobre la política."
+  },
+  "ciclo_ilusion_desencanto": {
+    "id": "ciclo_ilusion_desencanto",
+    "hook": "La Argentina pasó de ser el país de crecimiento más rápido al de los frenos más violentos; de la hiper a la deflación; del Estado empresario al privatizador récord. Gerchunoff y Llach le pusieron nombre a ese péndulo: ilusión y desencanto.",
+    "explanation": [
+      "El <b>ciclo de la ilusión y el desencanto</b> es la tesis que organiza el libro: la política económica argentina no es monótona; oscila con violencia entre euforias de prosperidad rápida y caídas que devuelven al punto de partida. En la primera globalización el país caminaba en el pelotón de los emergentes exitosos. Tras la Gran Depresión perdió el ritmo del pelotón y, según la metáfora de los autores, se tentó con <b>atajos</b> para volver a vivir como rica antes de dejar de ser pobre.",
+      "Esos atajos cambiaron de forma. Uno fue el <b>proteccionismo</b> y la economía cerrada de posguerra: volcar alimentos al mercado interno, sustituir manufacturas, repartir empleo y salarios altos. Funcionó un tiempo (el primer peronismo es la gran ilusión distributiva); después apareció la restricción externa y el sesgo inflacionario. Otro atajo, en los 70 y los 90, fue el <b>endeudamiento externo con apreciación cambiaria</b>: salarios altos en dólares que compensaban la erosión de la industria vieja… hasta que el campo minado explotó en los 80 y en 2001.",
+      "Gerchunoff y Llach no venden destino escrito en los genes. Enumeran contrafácticos —un Plan Pinedo viable, otro 1952, un Austral con mejores términos de intercambio, salir antes de la convertibilidad— para decir que la historia pudo ser otra. Pero el patrón se repite lo suficiente como para usarlo de brújula: cada ilusión promete atajo hacia la prosperidad; cada desencanto recuerda que sin bases productivas y de divisas sostenibles, el péndulo vuelve. Leer la Argentina con esta lente es preguntar, en cada auge: ¿camino o atajo?"
+    ],
+    "example": {
+      "title": "Dos ilusiones, dos desencantos",
+      "body": "Ilusión 1: la ISI y el primer peronismo democratizan la prosperidad urbana; desencanto: falta de dólares, inflación y stop-go. Ilusión 2: la convertibilidad mata la hiper y trae crédito y boom; desencanto: desempleo, deuda y el colapso de 2001. En ambos casos hubo ganancias reales al inicio y una promesa de haber 'encontrado el modelo'. En ambos, el final recordó los límites que el atajo había postergado."
+    },
+    "check": [
+      {
+        "type": "mcq",
+        "q": "Según Gerchunoff y Llach, ¿qué tienen en común el proteccionismo de posguerra y el endeudamiento con apreciación de los 90 como 'atajos'?",
+        "options": [
+          "Ambos garantizaron crecimiento exportador permanente sin costos",
+          "Ambos consistieron únicamente en bajar el gasto público a cero",
+          "Ambos prometieron prosperidad rápida (salarios, empleo o consumo) postergando restricciones de competitividad o de divisas que después reaparecieron",
+          "Ambos eliminaron para siempre la inflación y el ciclo económico"
+        ],
+        "answer": 2,
+        "explain": "El libro presenta ambos como vías para disfrutar prosperidad antes de consolidarla: uno vía cierre y distribución, otro vía deuda y salarios en dólares; ambos devuelven tensiones cuando se agotan."
+      },
+      {
+        "type": "open",
+        "q": "Elegí dos episodios de la historia económica argentina y mostrá en cada uno el momento de ilusión y el de desencanto.",
+        "criterion": "Podés aplicar la idea de ciclos de ilusión y desencanto a al menos dos episodios de la historia económica argentina y nombrar los atajos típicos.",
+        "model": "Por ejemplo: (1) Convertibilidad: ilusión de estabilidad y boom 1991-94; desencanto con recesión, corralito y default 2001. (2) ISI/peronismo de posguerra: ilusión de pleno empleo y salarios altos; desencanto con restricción externa e inflación. Los atajos fueron proteccionismo distributivo y, más tarde, endeudamiento con apreciación."
+      }
+    ],
+    "takeaway": "La pregunta argentina no es solo qué modelo elegir: es distinguir el camino del atajo antes de que el péndulo vuelva."
   }
 };

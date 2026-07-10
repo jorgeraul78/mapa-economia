@@ -1,11 +1,11 @@
 {
   "meta": {
     "name": "Taxonomía de Economía",
-    "version": "0.1",
+    "version": "0.2",
     "level": "introductorio / conceptual",
     "language": "es",
     "inspired_by": "withmarbleapp/os-taxonomy",
-    "description": "Grafo de prerrequisitos de conceptos económicos: micro, macro, finanzas, economía política e historia, y comportamiento."
+    "description": "Grafo de prerrequisitos de conceptos económicos: micro, macro, finanzas, economía política e historia, historia económica argentina y comportamiento."
   },
   "topics": [
     {
@@ -628,6 +628,87 @@
       "tier": 5,
       "type": "conceptual",
       "mastery": "Podés explicar la aversión a la pérdida y por qué contradice la teoría de utilidad esperada."
+    },
+    {
+      "id": "modelo_agroexportador",
+      "title": "Modelo agroexportador",
+      "description": "La especialización pampeana en granos y carnes (1880-1930): inmigración, capitales y ferrocarriles insertaron a la Argentina en la primera globalización y la convirtieron en uno de los países de crecimiento más rápido del mundo.",
+      "subject": "Historia Económica Argentina",
+      "tier": 4,
+      "type": "conceptual",
+      "mastery": "Podés explicar cómo la inserción agroexportadora impulsó el crecimiento argentino hasta 1930 y por qué quedó expuesta a los shocks del comercio y el capital externos."
+    },
+    {
+      "id": "isi",
+      "title": "Industrialización por sustitución de importaciones",
+      "description": "Tras la Gran Depresión, la industria local creció detrás de devaluación, aranceles y control de cambios: fabricar adentro lo que antes se importaba, con la promesa de empleo, modernidad y menor dependencia del exterior.",
+      "subject": "Historia Económica Argentina",
+      "tier": 4,
+      "type": "conceptual",
+      "mastery": "Podés describir el mecanismo de la ISI argentina y por qué respondió al cierre de mercados de los años 30 y al agotamiento del modelo agroexportador."
+    },
+    {
+      "id": "restriccion_externa",
+      "title": "Restricción externa",
+      "description": "El cuello de botella de divisas: cuando crecer exige más importaciones de insumos y bienes de capital de las que las exportaciones pueden pagar, la expansión se corta. El diagnóstico estructural que recorre la Argentina de posguerra.",
+      "subject": "Historia Económica Argentina",
+      "tier": 5,
+      "type": "conceptual",
+      "mastery": "Podés explicar por qué, en la Argentina industrializada de posguerra, crecer generaba déficit de dólares y forzaba frenos recesivos (el patrón stop-go)."
+    },
+    {
+      "id": "desarrollismo",
+      "title": "Desarrollismo",
+      "description": "El programa de Frondizi-Frigerio (1958-1962): completar la industrialización 'hacia atrás' —petróleo, acero, química, automotores— con inversión extranjera para romper de una vez la restricción externa.",
+      "subject": "Historia Económica Argentina",
+      "tier": 5,
+      "type": "conceptual",
+      "mastery": "Podés resumir el diagnóstico desarrollista y por qué apostó a las industrias básicas y al capital externo como vía para superar el estancamiento."
+    },
+    {
+      "id": "plan_austral",
+      "title": "Plan Austral",
+      "description": "La estabilización heterodoxa de junio de 1985: nueva moneda, tipo de cambio fijo y congelamiento de precios para cortar la inflación inercial, con la promesa de que el Banco Central dejaría de financiar al Tesoro.",
+      "subject": "Historia Económica Argentina",
+      "tier": 5,
+      "type": "conceptual",
+      "mastery": "Podés explicar la lógica del Austral —inercia, expectativas y anclas nominales— y por qué el éxito inicial no bastó sin consolidar el equilibrio fiscal."
+    },
+    {
+      "id": "hiperinflacion_89",
+      "title": "Hiperinflación de 1989",
+      "description": "El estallido de precios de 1989: corrida al dólar, emisión para servir deuda interna indexada y estrategias defensivas de cada sector que llevaron a tasas mensuales de decenas de por ciento y al adelanto del traspaso de mando.",
+      "subject": "Historia Económica Argentina",
+      "tier": 5,
+      "type": "conceptual",
+      "mastery": "Podés trazar la cadena desde el agotamiento de los planes de los 80 hasta la hiperinflación de 1989 y su impacto sobre la política económica posterior."
+    },
+    {
+      "id": "convertibilidad",
+      "title": "Convertibilidad",
+      "description": "El régimen 1991-2001: peso convertible uno a uno con el dólar, base monetaria respaldada por reservas y renuncia a la política monetaria autónoma. El autoatamiento que mató la inflación y amarró a la macro al ciclo de capitales.",
+      "subject": "Historia Económica Argentina",
+      "tier": 5,
+      "type": "conceptual",
+      "mastery": "Podés explicar cómo la convertibilidad ancló los precios, qué renunciaba el Estado al adoptarla y por qué su rigidez era a la vez su fortaleza y su riesgo."
+    },
+    {
+      "id": "crisis_2001",
+      "title": "Crisis de 2001",
+      "description": "El final de la convertibilidad: recesión prolongada, corrida bancaria, corralito, default y devaluación en medio del 'que se vayan todos'. La mayor crisis argentina en tiempos de paz de la posguerra.",
+      "subject": "Historia Económica Argentina",
+      "tier": 5,
+      "type": "conceptual",
+      "mastery": "Podés reconstruir por qué el régimen convertibilizado se volvió insostenible y qué detonó el colapso económico y político de 2001."
+    },
+    {
+      "id": "ciclo_ilusion_desencanto",
+      "title": "El ciclo de la ilusión y el desencanto",
+      "description": "La tesis de Gerchunoff y Llach: la política económica argentina oscila entre euforias de prosperidad rápida —atajos de proteccionismo o de endeudamiento con apreciación— y desencantos cuando esos atajos se agotan y devuelven al casillero inicial.",
+      "subject": "Historia Económica Argentina",
+      "tier": 5,
+      "type": "conceptual",
+      "mastery": "Podés aplicar la idea de ciclos de ilusión y desencanto a al menos dos episodios de la historia económica argentina y nombrar los atajos típicos."
     }
   ],
   "dependencies": [
@@ -1356,6 +1437,192 @@
       "prerequisite": "utilidad",
       "type": "hard",
       "reason": "Reemplaza la utilidad esperada como teoría de la decisión."
+    },
+    {
+      "topic": "modelo_agroexportador",
+      "prerequisite": "ventaja_comparativa",
+      "type": "hard",
+      "reason": "El modelo se basó en especializarse en lo que la pampa producía mejor para el mercado mundial."
+    },
+    {
+      "topic": "modelo_agroexportador",
+      "prerequisite": "crecimiento",
+      "type": "soft",
+      "reason": "Es el primer gran episodio de crecimiento moderno de la Argentina."
+    },
+    {
+      "topic": "modelo_agroexportador",
+      "prerequisite": "instituciones",
+      "type": "soft",
+      "reason": "La consolidación del Estado nacional desde 1880 fue precondición del despegue."
+    },
+    {
+      "topic": "isi",
+      "prerequisite": "modelo_agroexportador",
+      "type": "hard",
+      "reason": "La ISI nace como respuesta al agotamiento y a la vulnerabilidad del modelo agroexportador."
+    },
+    {
+      "topic": "isi",
+      "prerequisite": "gran_depresion",
+      "type": "hard",
+      "reason": "La crisis de los 30 y el cierre de mercados forzaron la industrialización hacia adentro."
+    },
+    {
+      "topic": "isi",
+      "prerequisite": "controles_precios",
+      "type": "soft",
+      "reason": "Aranceles, control de cambios y precios administrados fueron herramientas típicas de la ISI."
+    },
+    {
+      "topic": "restriccion_externa",
+      "prerequisite": "balanza_pagos",
+      "type": "hard",
+      "reason": "La restricción es, en el fondo, un problema de dólares en la balanza de pagos."
+    },
+    {
+      "topic": "restriccion_externa",
+      "prerequisite": "isi",
+      "type": "hard",
+      "reason": "La industria sustitutiva exigía insumos y bienes de capital importados que las exportaciones no alcanzaban a financiar."
+    },
+    {
+      "topic": "restriccion_externa",
+      "prerequisite": "tipo_cambio",
+      "type": "soft",
+      "reason": "Devaluaciones y controles de cambio fueron las respuestas recurrentes al cuello de botella de divisas."
+    },
+    {
+      "topic": "desarrollismo",
+      "prerequisite": "isi",
+      "type": "hard",
+      "reason": "El desarrollismo buscaba completar la ISI hacia las industrias básicas."
+    },
+    {
+      "topic": "desarrollismo",
+      "prerequisite": "restriccion_externa",
+      "type": "hard",
+      "reason": "Su meta central era romper el cuello de botella de divisas (petróleo, acero, química)."
+    },
+    {
+      "topic": "desarrollismo",
+      "prerequisite": "desarrollo",
+      "type": "soft",
+      "reason": "Comparte el diagnóstico de industrialización como vía a la modernidad."
+    },
+    {
+      "topic": "plan_austral",
+      "prerequisite": "hiperinflacion",
+      "type": "hard",
+      "reason": "Nació al borde de la hiper y se pensó como alternativa a los planes puramente monetaristas."
+    },
+    {
+      "topic": "plan_austral",
+      "prerequisite": "expectativas",
+      "type": "hard",
+      "reason": "Su núcleo era cortar la inflación inercial coordinando expectativas con anclas nominales."
+    },
+    {
+      "topic": "plan_austral",
+      "prerequisite": "inflacion",
+      "type": "hard",
+      "reason": "Es un plan de estabilización de precios."
+    },
+    {
+      "topic": "plan_austral",
+      "prerequisite": "controles_precios",
+      "type": "soft",
+      "reason": "Usó congelamiento de precios, salarios y tipo de cambio como anclas."
+    },
+    {
+      "topic": "hiperinflacion_89",
+      "prerequisite": "hiperinflacion",
+      "type": "hard",
+      "reason": "Es el caso argentino canónico del fenómeno general de hiperinflación."
+    },
+    {
+      "topic": "hiperinflacion_89",
+      "prerequisite": "plan_austral",
+      "type": "hard",
+      "reason": "El colapso llega tras el desgaste del Austral y del Plan Primavera."
+    },
+    {
+      "topic": "hiperinflacion_89",
+      "prerequisite": "politica_fiscal",
+      "type": "soft",
+      "reason": "El Estado sin financiamiento y la emisión para pagar deuda interna alimentaron la espiral."
+    },
+    {
+      "topic": "convertibilidad",
+      "prerequisite": "hiperinflacion_89",
+      "type": "hard",
+      "reason": "Nació para matar de raíz la memoria y la amenaza hiperinflacionarias."
+    },
+    {
+      "topic": "convertibilidad",
+      "prerequisite": "tipo_cambio",
+      "type": "hard",
+      "reason": "Es un régimen de tipo de cambio fijo con respaldo legal de la base monetaria."
+    },
+    {
+      "topic": "convertibilidad",
+      "prerequisite": "banco_central",
+      "type": "hard",
+      "reason": "Renunció a la política monetaria autónoma: el BCRA solo emite si entran dólares."
+    },
+    {
+      "topic": "convertibilidad",
+      "prerequisite": "expectativas",
+      "type": "soft",
+      "reason": "La credibilidad del ancla dependía de anclar las expectativas de precios al dólar."
+    },
+    {
+      "topic": "crisis_2001",
+      "prerequisite": "convertibilidad",
+      "type": "hard",
+      "reason": "Fue el colapso del régimen convertibilizado."
+    },
+    {
+      "topic": "crisis_2001",
+      "prerequisite": "balanza_pagos",
+      "type": "soft",
+      "reason": "Competitividad, deuda y acceso a financiamiento externo fueron el corazón del desenlace."
+    },
+    {
+      "topic": "crisis_2001",
+      "prerequisite": "tasas_interes",
+      "type": "soft",
+      "reason": "El riesgo país y las tasas asfixiaron la actividad y la refinanciación de la deuda."
+    },
+    {
+      "topic": "ciclo_ilusion_desencanto",
+      "prerequisite": "modelo_agroexportador",
+      "type": "hard",
+      "reason": "La tesis arranca en la euforia de la belle époque y en la pérdida de ese pelotón."
+    },
+    {
+      "topic": "ciclo_ilusion_desencanto",
+      "prerequisite": "restriccion_externa",
+      "type": "hard",
+      "reason": "La restricción de divisas es el freno recurrente que corta las ilusiones de crecimiento fácil."
+    },
+    {
+      "topic": "ciclo_ilusion_desencanto",
+      "prerequisite": "convertibilidad",
+      "type": "hard",
+      "reason": "Ilustración canónica de ilusión (estabilidad y boom) y desencanto (colapso 2001)."
+    },
+    {
+      "topic": "ciclo_ilusion_desencanto",
+      "prerequisite": "crisis_2001",
+      "type": "hard",
+      "reason": "Es el desencanto que cierra el ciclo de los 90 en el relato del libro."
+    },
+    {
+      "topic": "ciclo_ilusion_desencanto",
+      "prerequisite": "desarrollo",
+      "type": "soft",
+      "reason": "El libro pregunta por qué la Argentina no recuperó el pelotón del desarrollo."
     }
   ]
 }
