@@ -1,7 +1,7 @@
 {
   "meta": {
     "name": "Taxonomía de Economía",
-    "version": "0.2",
+    "version": "0.3",
     "level": "introductorio / conceptual",
     "language": "es",
     "inspired_by": "withmarbleapp/os-taxonomy",
@@ -709,6 +709,60 @@
       "tier": 5,
       "type": "conceptual",
       "mastery": "Podés aplicar la idea de ciclos de ilusión y desencanto a al menos dos episodios de la historia económica argentina y nombrar los atajos típicos."
+    },
+    {
+      "id": "peronismo_economico",
+      "title": "Peronismo económico (1946-1955)",
+      "description": "El primer peronismo: redistribución salarial, avance del Estado productor, industrialización hacia adentro e IAPI. La gran ilusión de conciliar expansión y justicia social con términos de intercambio excepcionales.",
+      "subject": "Historia Económica Argentina",
+      "tier": 4,
+      "type": "conceptual",
+      "mastery": "Podés explicar el triángulo redistributivo del primer peronismo (campo, ciudad y Estado) y por qué dependía de una coyuntura externa excepcional."
+    },
+    {
+      "id": "reforma_financiera_77",
+      "title": "Reforma financiera de 1977",
+      "description": "La desregulación bancaria del gobierno de Martínez de Hoz: liberación de tasas, nuevos intermediarios y un sistema financiero que creció rápido… y mostró fragilidades graves al final del ciclo.",
+      "subject": "Historia Económica Argentina",
+      "tier": 5,
+      "type": "conceptual",
+      "mastery": "Podés situar la reforma financiera de 1977 como giro de un sistema bancario regulado hacia uno liberalizado y anticipar por qué esa transición fue inestable."
+    },
+    {
+      "id": "tablita",
+      "title": "La tablita cambiaria",
+      "description": "El crawling peg anunciado en diciembre de 1978: un cronograma de devaluación decreciente para anclar la inflación vía tipo de cambio, que terminó en atraso cambiario, boom importador y colapso de credibilidad.",
+      "subject": "Historia Económica Argentina",
+      "tier": 5,
+      "type": "conceptual",
+      "mastery": "Podés explicar la lógica antiinflacionaria de la tablita y por qué la divergencia entre devaluación e inflación generó atraso cambiario."
+    },
+    {
+      "id": "decada_perdida",
+      "title": "Década perdida y crisis de la deuda",
+      "description": "Los 80 latinoamericanos tras el default mexicano de 1982: corte del financiamiento externo, ajuste por importaciones y, en la Argentina, estancamiento de los 70 más recesión de los 80 con inflación crónica y deuda socializada.",
+      "subject": "Historia Económica Argentina",
+      "tier": 5,
+      "type": "conceptual",
+      "mastery": "Podés explicar por qué la crisis de la deuda convirtió a los 80 en una 'década perdida' y qué herencia (deuda, inflación, recesión) recibió la democracia en 1983."
+    },
+    {
+      "id": "posconvertibilidad",
+      "title": "Posconvertibilidad y recuperación 2002-2007",
+      "description": "La salida del 1 a 1: devaluación, tipo de cambio real alto, capacidad ociosa, superávits gemelos y un círculo virtuoso de reactivación que Gerchunoff y Llach leen como la gran ilusión del ciclo siguiente.",
+      "subject": "Historia Económica Argentina",
+      "tier": 5,
+      "type": "conceptual",
+      "mastery": "Podés explicar cómo el tipo de cambio competitivo y la capacidad ociosa impulsaron la recuperación 2002-2007 y qué rol jugó el 'viento de cola' externo."
+    },
+    {
+      "id": "kirchnerismo",
+      "title": "Ciclo kirchnerista (2003-2015)",
+      "description": "Del crecimiento 'a tasas chinas' al cepo y el stop-go: tipo de cambio competitivo, inclusión social y superávits que se erosionan; inflación, retenciones, manipulación del IPC y controles cambiarios hasta el final de 2015.",
+      "subject": "Historia Económica Argentina",
+      "tier": 5,
+      "type": "conceptual",
+      "mastery": "Podés trazar el arco de ilusión y desencanto del kirchnerismo: recuperación inicial, tensiones (inflación, apreciación, 125) y agotamiento con cepo y restricción externa."
     }
   ],
   "dependencies": [
@@ -1556,7 +1610,7 @@
       "topic": "convertibilidad",
       "prerequisite": "hiperinflacion_89",
       "type": "hard",
-      "reason": "Nació para matar de raíz la memoria y la amenaza hiperinflacionarias."
+      "reason": "Nació para matar de raíz la memoria y la amenaza hiperinflacionaria."
     },
     {
       "topic": "convertibilidad",
@@ -1623,6 +1677,156 @@
       "prerequisite": "desarrollo",
       "type": "soft",
       "reason": "El libro pregunta por qué la Argentina no recuperó el pelotón del desarrollo."
+    },
+    {
+      "topic": "peronismo_economico",
+      "prerequisite": "isi",
+      "type": "hard",
+      "reason": "El primer peronismo profundiza y politiza la industrialización por sustitución de importaciones."
+    },
+    {
+      "topic": "peronismo_economico",
+      "prerequisite": "eficiencia_equidad",
+      "type": "soft",
+      "reason": "Su promesa central es redistribuir (equidad) sin renunciar a la expansión (eficiencia)."
+    },
+    {
+      "topic": "peronismo_economico",
+      "prerequisite": "politica_fiscal",
+      "type": "soft",
+      "reason": "Gasto, empleo público y el margen del IAPI son el motor fiscal de la fase expansiva."
+    },
+    {
+      "topic": "reforma_financiera_77",
+      "prerequisite": "dinero_bancos",
+      "type": "hard",
+      "reason": "La reforma rediseña cómo los bancos captan y prestan dinero."
+    },
+    {
+      "topic": "reforma_financiera_77",
+      "prerequisite": "tasas_interes",
+      "type": "hard",
+      "reason": "El núcleo del cambio fue liberar las tasas de interés antes reguladas."
+    },
+    {
+      "topic": "reforma_financiera_77",
+      "prerequisite": "escuelas_pensamiento",
+      "type": "soft",
+      "reason": "Expresa el giro anti-keynesiano y de revalorización del mercado de fines de los 70."
+    },
+    {
+      "topic": "tablita",
+      "prerequisite": "tipo_cambio",
+      "type": "hard",
+      "reason": "Es un régimen de crawling peg: el ancla antiinflacionaria es el cronograma del dólar."
+    },
+    {
+      "topic": "tablita",
+      "prerequisite": "expectativas",
+      "type": "hard",
+      "reason": "Buscaba disciplinar precios haciendo previsible la devaluación futura."
+    },
+    {
+      "topic": "tablita",
+      "prerequisite": "inflacion",
+      "type": "hard",
+      "reason": "Su objetivo explícito era bajar la inflación por convergencia con el exterior."
+    },
+    {
+      "topic": "tablita",
+      "prerequisite": "reforma_financiera_77",
+      "type": "soft",
+      "reason": "Opera en el mismo paquete de Martínez de Hoz: apertura financiera y ancla cambiaria."
+    },
+    {
+      "topic": "decada_perdida",
+      "prerequisite": "tablita",
+      "type": "hard",
+      "reason": "El colapso de la tablita y el endeudamiento de fines de los 70 abren la crisis de la deuda."
+    },
+    {
+      "topic": "decada_perdida",
+      "prerequisite": "balanza_pagos",
+      "type": "hard",
+      "reason": "El corte del financiamiento externo y el servicio de la deuda redefinen las cuentas externas."
+    },
+    {
+      "topic": "decada_perdida",
+      "prerequisite": "crecimiento",
+      "type": "soft",
+      "reason": "Es el episodio canónico de estancamiento y retroceso del producto en la región."
+    },
+    {
+      "topic": "posconvertibilidad",
+      "prerequisite": "crisis_2001",
+      "type": "hard",
+      "reason": "Es la salida del colapso convertibilizado: devaluación y reordenamiento post-default."
+    },
+    {
+      "topic": "posconvertibilidad",
+      "prerequisite": "tipo_cambio",
+      "type": "hard",
+      "reason": "El tipo de cambio real alto es el pivote de la recuperación según el libro."
+    },
+    {
+      "topic": "posconvertibilidad",
+      "prerequisite": "balanza_pagos",
+      "type": "soft",
+      "reason": "Superávit de cuenta corriente y acumulación de reservas cierran el círculo virtuoso inicial."
+    },
+    {
+      "topic": "kirchnerismo",
+      "prerequisite": "posconvertibilidad",
+      "type": "hard",
+      "reason": "El ciclo kirchnerista arranca sobre la recuperación y el tipo de cambio competitivo post-2002."
+    },
+    {
+      "topic": "kirchnerismo",
+      "prerequisite": "restriccion_externa",
+      "type": "soft",
+      "reason": "El agotamiento reintroduce el stop-go y la escasez de divisas (cepo mediante)."
+    },
+    {
+      "topic": "kirchnerismo",
+      "prerequisite": "inflacion",
+      "type": "soft",
+      "reason": "La inflación creciente y la manipulación del IPC marcan la erosión del modelo."
+    },
+    {
+      "topic": "kirchnerismo",
+      "prerequisite": "politica_fiscal",
+      "type": "soft",
+      "reason": "Del superávit gemelo al expansionismo fiscal y el uso de recursos del BCRA y la ANSES."
+    },
+    {
+      "topic": "ciclo_ilusion_desencanto",
+      "prerequisite": "peronismo_economico",
+      "type": "soft",
+      "reason": "Es la gran ilusión distributiva de posguerra que el prólogo usa como primer atajo."
+    },
+    {
+      "topic": "ciclo_ilusion_desencanto",
+      "prerequisite": "kirchnerismo",
+      "type": "soft",
+      "reason": "El libro lo lee como el tercer ciclo completo de ilusión y desencanto de la democracia."
+    },
+    {
+      "topic": "ciclo_ilusion_desencanto",
+      "prerequisite": "tablita",
+      "type": "soft",
+      "reason": "Ilustra el atajo de endeudamiento con apreciación cambiaria de los 70."
+    },
+    {
+      "topic": "plan_austral",
+      "prerequisite": "decada_perdida",
+      "type": "soft",
+      "reason": "El Austral se lanza sobre la herencia de deuda, inflación crónica y estancamiento de los 80."
+    },
+    {
+      "topic": "restriccion_externa",
+      "prerequisite": "peronismo_economico",
+      "type": "soft",
+      "reason": "Las políticas de precios al agro y el consumo interno debilitaron exportaciones y anticiparon el cuello de botella de divisas."
     }
   ]
 }

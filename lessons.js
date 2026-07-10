@@ -2651,5 +2651,209 @@ window.LESSONS = {
       }
     ],
     "takeaway": "La pregunta que el libro deja instalada ante cada auge argentino es una sola: ¿esto lo sostiene la base productiva, o es otro adelanto contra una restricción que va a volver? — ¿camino, o atajo?"
+  },
+  "peronismo_economico": {
+    "id": "peronismo_economico",
+    "hook": "Entre 1945 y 1949 los salarios reales argentinos subieron 62% y, por primera vez, la parte salarial del ingreso nacional superó a la de ganancias, intereses y renta. Parecía posible ser industrial, justo y soberano al mismo tiempo.",
+    "explanation": [
+      "El <b>peronismo económico</b> del primer gobierno de Perón (1946-1955) es, en el relato de Gerchunoff y Llach, la gran ilusión de posguerra: conciliar expansión industrial, salarios altos y un Estado que produce y redistribuye. No es solo 'más ISI': es un paquete político-económico. El discurso del <b>justicialismo</b> —ni capitalismo ni comunismo— se traduce en armonía de clases, sindicatos fuertes (sobre todo la CGT) y un Estado tutor que avanza como productor de servicios y energía: ferrocarriles, teléfonos, Gas del Estado, YCF, plantas hidroeléctricas, DINIE.",
+      "El motor distributivo fue una política de ingresos agresiva (asociada al Primer Plan Quinquenal y a Miguel Miranda) y un triángulo redistributivo entre <b>campo, ciudad y Estado</b>. El <b>IAPI</b> monopolizó la comercialización de granos: compraba barato al productor y vendía caro afuera aprovechando los <b>términos de intercambio</b> más altos del siglo. Ese margen financiaba gasto público y abarataba alimentos internos, lo que permitía salarios reales altos sin destrozar del todo la rentabilidad industrial. Crédito barato y protección completaban el esquema.",
+      "La ilusión descansaba en una coyuntura excepcional y en un pesimismo sobre el comercio mundial (se apostaba más a una Tercera Guerra que a la resurrección del multilateralismo). Cuando los precios externos cayeron y la industria pidió más insumos importados, reaparecieron el déficit externo y la inflación. El libro lo lee sin moralina: funcionó un tiempo porque el mundo pagaba muy bien los alimentos argentinos; al acabarse esa marea, el modelo mostró el peaje de haber desalentado al agro exportador y de haber extendido el Estado más allá de su capacidad de financiamiento no inflacionario."
+    ],
+    "example": {
+      "title": "El triángulo del IAPI",
+      "body": "Imaginá 1947: el trigo vale una fortuna en el mercado mundial. El IAPI se lo compra al chacarero a un precio interno contenido y lo vende afuera al precio pleno. Con la diferencia paga obra pública y sueldos. En la ciudad, el pan no se dispara y el salario rinde. La fábrica vende más al mercado interno y pide crédito. Todos ganan… mientras el precio internacional siga alto y las reservas den para importar máquinas e insumos. Cuando eso se corta, el triángulo se desequilibra: o cae el salario real, o sube la inflación, o faltan dólares."
+    },
+    "check": [
+      {
+        "type": "mcq",
+        "q": "Según Gerchunoff y Llach, ¿qué rol cumplió el IAPI en el primer peronismo?",
+        "options": [
+          "Monopolizó el comercio de granos y transfirió renta del campo al Estado y a la ciudad vía precios internos contenidos",
+          "Fue un banco central independiente con meta de inflación",
+          "Privatizó los ferrocarriles británicos a favor del capital norteamericano",
+          "Fijó el peso a la par del dólar con respaldo pleno de reservas"
+        ],
+        "answer": 0,
+        "explain": "El IAPI compraba cosechas y las vendía internamente y al exterior, capturando el margen de los altos precios internacionales y barateando alimentos locales."
+      },
+      {
+        "type": "open",
+        "q": "¿Por qué el 'milagro' distributivo de 1946-49 era difícil de sostener cuando cambió el mundo?",
+        "criterion": "Podés explicar el triángulo redistributivo del primer peronismo (campo, ciudad y Estado) y por qué dependía de una coyuntura externa excepcional.",
+        "model": "Porque se apoyaba en términos de intercambio excepcionales y en transferir renta del agro exportador. Al caer esos precios y al necesitar la industria más importaciones de insumos, se agotaba el margen del IAPI y reaparecían restricción externa e inflación."
+      }
+    ],
+    "takeaway": "Justicia social con soja (o trigo) cara es fácil; el test del modelo llega cuando el mundo deja de pagar la fiesta."
+  },
+  "reforma_financiera_77": {
+    "id": "reforma_financiera_77",
+    "hook": "En 1977, en medio de la dictadura, Martínez de Hoz soltó de un saque el sistema bancario que venía de décadas de tasas reguladas y control estatal. Fue uno de los cambios más drásticos del período… y de los más frágiles.",
+    "explanation": [
+      "La <b>reforma financiera de 1977</b> es el capítulo financiero del programa de José Alfredo Martínez de Hoz. Gerchunoff y Llach la destacan como excepción al gradualismo del gobierno militar: un rediseño profundo del sistema bancario. Desde 1946 la Argentina había alternado fases de libertad relativa con épocas de fuerte regulación —las últimas, asociadas a gobiernos peronistas—. La reforma empujó hacia la <b>liberalización</b>: tasas de interés más libres, nuevos intermediarios y un mercado de crédito que prometía asignar mejor el ahorro.",
+      "La lógica era de manual de época: sin tasas artificialmente bajas ni racionamiento del crédito, el capital iría a usos más productivos y se rearmaría un mercado de capitales. En el corto plazo, el sistema creció y se volvió más sofisticado. Pero la transición se hizo en un país con inflación alta, apertura financiera al exterior y, más tarde, un ancla cambiaria (la tablita) que distorsionaba señales de riesgo y rentabilidad en pesos versus dólares.",
+      "El libro no idealiza el resultado. Hacia el final del ciclo militar el sistema bancario reveló <b>fragilidades múltiples</b>: crisis de entidades, corridas, intervención del Banco Central y un proceso posterior de socialización de deudas. La reforma importa como pieza del atajo de los 70 —abrir y modernizar por la vía financiera— y como advertencia: liberalizar el crédito sin un ancla macro creíble y sin supervisión sólida puede fabricar un boom… y un rescate."
+    ],
+    "example": {
+      "title": "Tasas libres en un país con inflación de tres dígitos",
+      "body": "Si liberás las tasas cuando la inflación corre al 100% o 150% anual, el número nominal de la tasa se vuelve un volantazo permanente. Los bancos compiten por depósitos ofreciendo más; las empresas se endeudan si creen que el dólar o la inflación les licuará la deuda. Cuando la confianza se quiebra —como en 1980-81— las tasas reales se disparan, quiebran deudores y el Estado termina absorbiendo pedazos del sistema. La libertad de tasas no era el problema en abstracto: era el contexto macro en el que se la soltó."
+    },
+    "check": [
+      {
+        "type": "mcq",
+        "q": "¿Qué cambió de fondo la reforma financiera de 1977 en la Argentina?",
+        "options": [
+          "Nacionalizó todos los depósitos y volvió al IAPI bancario",
+          "Pasó de un esquema más regulado de tasas y crédito a uno liberalizado de intermediación financiera",
+          "Adoptó la convertibilidad uno a uno con el dólar",
+          "Prohibió la banca privada y dejó solo al Banco Nación"
+        ],
+        "answer": 1,
+        "explain": "El núcleo fue desregular el sistema bancario —en especial las tasas— rompiendo con décadas de fuerte regulación del crédito."
+      },
+      {
+        "type": "open",
+        "q": "¿Por qué una reforma que buscaba 'modernizar' el crédito pudo terminar en fragilidad sistémica?",
+        "criterion": "Podés situar la reforma financiera de 1977 como giro de un sistema bancario regulado hacia uno liberalizado y anticipar por qué esa transición fue inestable.",
+        "model": "Porque se combinó con inflación alta, apertura financiera y señales cambiarias distorsionadas: el boom de intermediación creció más rápido que la capacidad de evaluar riesgo, y al cortarse la confianza el Estado debió absorber quiebras y deudas."
+      }
+    ],
+    "takeaway": "Liberar el crédito multiplica el sistema financiero… y multiplica también los errores si la macro no ancla las expectativas."
+  },
+  "tablita": {
+    "id": "tablita",
+    "hook": "El 20 de diciembre de 1978 el gobierno publicó una tablita: mes a mes, cuánto valdría el dólar. La idea era genial en el pizarrón. En la vida real, la inflación no se enteró… y el país se volvió carísimo en dólares.",
+    "explanation": [
+      "La <b>tablita</b> fue el crawling peg antiinflacionario de Martínez de Hoz: un cronograma preanunciado de devaluación decreciente (por ejemplo, del 5% mensual hacia tasas menores) para que la inflación local convergiera a la inflación internacional más el ritmo del dólar. Completaban el esquema 'pautas' de tarifas, salarios mínimos y crédito. Tras el fracaso de controlar la inflación solo con dinero, el tipo de cambio pasó a ser el ancla: se esperaba que los bienes comerciables no pudieran subir mucho más que 'afuera + devaluación'.",
+      "Gerchunoff y Llach subrayan la doble cara del efecto inicial. Hubo expansión en 1979 (el PBI creció fuerte; el desempleo tocó mínimos) porque las tasas reales cayeron —en buena medida porque la inflación siguió alta, no porque el riesgo país se hubiera evaporado—. Pero la inflación minorista apenas bajó (del orden de 170% a 160% anual) mientras el dólar se movía mucho más despacio. Esa <b>divergencia</b> es el corazón del fracaso: se acumula <b>atraso cambiario</b>, se abaratan las importaciones, se castiga a exportadores y la balanza comercial se da vuelta.",
+      "La credibilidad se fue erosionando en 1980: crisis bancaria, fuga, tasas en pesos disparadas y un chiste de época —los pobres de vacaciones a Uruguay, la clase media a Brasil, los ricos se quedan—. El libro la lee como caso de ancla cambiaria gradualista que no disciplina precios lo bastante rápido: cuando la gente duda del cronograma, la tablita se vuelve una invitación a apostar en contra. En 1981 se abandona; queda el legado de deuda, atraso y recesión."
+    ],
+    "example": {
+      "title": "La cuenta que no cerraba",
+      "body": "Supongamos que la tablita devalúa el peso 60% en el año y la inflación internacional de comerciables es 10%. El manual dice: inflación local de transables cerca de 70%. Si en la práctica los precios suben 150%, cada mes el país se encarece en dólares. Importar ropa o maquinaria se pone barato; exportar se pone cuesta arriba. Podés vivir un año de 'plata dulce' y turismo afuera… hasta que faltan reservas o estalla la desconfianza y hay que devaluar de un saque lo que la tablita no devaluó de a poco."
+    },
+    "check": [
+      {
+        "type": "mcq",
+        "q": "¿Cuál fue el mecanismo por el que la tablita generó atraso cambiario?",
+        "options": [
+          "El gobierno devaluó mucho más rápido que la inflación interna",
+          "Se prohibieron todas las importaciones y sobraron dólares",
+          "La inflación interna se mantuvo muy por encima del ritmo preanunciado de devaluación del dólar",
+          "El Banco Central dejó de publicar el tipo de cambio"
+        ],
+        "answer": 2,
+        "explain": "Al devaluar según la tablita más despacio de lo que subían los precios locales, el tipo de cambio real se apreciaba y el país se encarecía en dólares."
+      },
+      {
+        "type": "open",
+        "q": "¿Por qué un ancla cambiaria 'previsible' puede fallar aunque el cronograma se cumpla mes a mes?",
+        "criterion": "Podés explicar la lógica antiinflacionaria de la tablita y por qué la divergencia entre devaluación e inflación generó atraso cambiario.",
+        "model": "Porque la inflación puede no converger al ritmo del dólar por inercia, demanda o falta de credibilidad. Si los precios corren más que la devaluación, hay atraso real, deterioro externo y al final se duda del propio cronograma."
+      }
+    ],
+    "takeaway": "Anunciar el dólar de agosto no baja la inflación de enero: si los precios no convergen, la tablita fabrica atraso."
+  },
+  "decada_perdida": {
+    "id": "decada_perdida",
+    "hook": "En 1982 México amenazó con no pagar y se cerró el grifo del crédito para toda América Latina. La Argentina llegó a esa fiesta ya borracha de deuda, inflación y recesión: le tocó lo peor de los 70 y lo peor de los 80.",
+    "explanation": [
+      "La <b>década perdida</b> es el nombre que Gerchunoff y Llach retoman para los 80 latinoamericanos: tras la crisis de la deuda desencadenada en 1982, se corta el financiamiento voluntario y hay que generar superávit comercial a la fuerza —casi siempre contrayendo importaciones e inversión—. Europa y EE.UU. se recuperan; la región se estanca. La Argentina, dice el libro, combina lo peor de cada época: estancamiento en los 70 y recesión en los 80.",
+      "El tramo 1981-83 es 'crisis sobre crisis': se abandona la tablita, hay devaluaciones en cadena, se revierte la apertura, se re-regulan tasas y se socializa deuda privada vía seguros de cambio. El PBI cae del orden del 9% en 1981-82 (la mayor recesión desde los 30). Afuera, las tasas internacionales suben por el moneterismo del Norte y encarecen el servicio de la deuda. En 1983 la deuda ronda los 45 mil millones de dólares y cerca del 70% ya es pública: el Estado absorbió lo que el privado no podía pagar en moneda dura.",
+      "La democracia de 1983 hereda, según el libro, un problema de dos caras: conseguir recursos fiscales y superávit comercial para servir deuda, en una economía acostumbrada a vivir con inflación de tres dígitos. No es solo un mal dato de crecimiento: es el puente entre el atajo de endeudamiento con apreciación de los 70 y los experimentos de estabilización (Austral) y la hiper de 1989. La década perdida es el precio de haber financiado con deuda lo que la productividad y las exportaciones no sostenían."
+    ],
+    "example": {
+      "title": "Ajustar sin crédito",
+      "body": "Cuando nadie te presta, la única forma de pagar intereses en dólares es exportar más de lo que importás. Si no podés exportar mucho más de golpe, cortás importaciones un 40% (como la región a inicios de los 80). Eso significa menos máquinas, menos insumos, menos actividad. El país 'ordena' la cuenta externa empobreciéndose: es el ajuste de la década perdida, no un plan de desarrollo."
+    },
+    "check": [
+      {
+        "type": "mcq",
+        "q": "¿Qué hecho externo marca el inicio de la crisis de la deuda latinoamericana que define la década perdida?",
+        "options": [
+          "La creación del Plan Austral en 1985",
+          "La convertibilidad de 1991",
+          "La entrada de China a la OMC en 2001",
+          "La amenaza de moratoria mexicana en 1982 y el cierre del crédito voluntario internacional"
+        ],
+        "answer": 3,
+        "explain": "El libro sitúa en la crisis de la deuda de 1982 —con México como detonante— el corte de financiamiento que fuerza el ajuste regional de los 80."
+      },
+      {
+        "type": "open",
+        "q": "¿Qué herencia económica recibió el gobierno democrático de 1983 según este relato?",
+        "criterion": "Podés explicar por qué la crisis de la deuda convirtió a los 80 en una 'década perdida' y qué herencia (deuda, inflación, recesión) recibió la democracia en 1983.",
+        "model": "Deuda externa elevada y mayormente pública, necesidad de superávit comercial y fiscal para servirla, recesión reciente e inflación crónica de tres dígitos: un margen de maniobra estrecho para estabilizar y crecer."
+      }
+    ],
+    "takeaway": "Cuando se cierra el crédito externo, el ajuste no se negocia: se importa menos, se invierte menos y se pierde una década."
+  },
+  "posconvertibilidad": {
+    "id": "posconvertibilidad",
+    "hook": "Después del abismo de 2001-2002, la Argentina reapareció creciendo a tasas que parecían chinas. No fue magia: fue un tipo de cambio barato en dólares, fábricas a medio uso y un mundo que volvía a pagar bien la soja.",
+    "explanation": [
+      "La <b>posconvertibilidad</b> es el tramo de salida del régimen 1 a 1: devaluación, default/reestructuración, licuación de deudas en pesos y un <b>tipo de cambio real alto</b> que Gerchunoff y Llach ponen en el centro de la recuperación 2002-2007. Con la economía en el piso, había <b>capacidad ociosa</b>: se podía producir más sin mucha inversión nueva. El dólar alto abarataba costos laborales en moneda dura, favorecía exportar y sustituir importaciones, y —mientras la actividad era baja— permitía superávit de cuenta corriente.",
+      "El libro describe un círculo virtuoso inicial: superávits gemelos (fiscal y externo), el Central comprando dólares para no dejar apreciar del todo el peso, confianza que vuelve al peso y reservas que suben. A eso se suma el <b>viento de cola</b>: mejora de términos de intercambio, Brasil creciendo (demanda de manufacturas argentinas) y tasas mundiales bajas. En lo fiscal, los primeros años preservan superávit aunque el gasto crezca; en lo cambiario, Néstor Kirchner prioriza el tipo de cambio competitivo incluso contra la preferencia más antiinflacionaria de Prat-Gay en el BCRA.",
+      "Esa fase es la 'ilusión' del ciclo siguiente: parece posible reindustrializar, mejorar salarios y mantener superávits sin el ancla rígida de los 90. El matiz del libro es crucial: gran parte del milagro era rebotar desde muy abajo con un dólar alto y precios de commodities en alza. Cuando se acerque el pleno empleo y la inflación, ese menú se volverá más conflictivo. La posconvertibilidad explica el despegue; no garantiza que el modelo sea permanente."
+    ],
+    "example": {
+      "title": "Fábrica a media máquina",
+      "body": "En 2002 una planta metalúrgica del conurbano produce al 50% de su capacidad. Devalúan: el acero importado se encarece y el cliente local vuelve a comprar nacional. El dueño enciende el segundo turno sin construir una planta nueva. El empleo sube, el salario en pesos se recupera desde el pozo, y el Central acumula dólares porque el país exporta más de lo que importa. Eso es recuperación por capacidad ociosa + tipo de cambio real alto: potentísima… hasta que la planta se llena y los precios empiezan a pisar el acelerador."
+    },
+    "check": [
+      {
+        "type": "mcq",
+        "q": "¿Cuáles son, en el relato del libro, los pilares de la recuperación 2002-2007?",
+        "options": [
+          "Tipo de cambio real alto, capacidad ociosa, superávits y un contexto externo favorable",
+          "Convertibilidad reforzada y ancla 1 a 1 más rígida",
+          "Hiperinflación controlada solo con la tablita de 1978",
+          "Cierre total del comercio y abandono del peso"
+        ],
+        "answer": 0,
+        "explain": "La recuperación se apoya en el dólar alto post-devaluación, el rebote desde actividad deprimida, superávits y el viento de cola de commodities y Brasil."
+      },
+      {
+        "type": "open",
+        "q": "¿Por qué un tipo de cambio 'competitivo' puede alinear por un tiempo al campo y a la industria?",
+        "criterion": "Podés explicar cómo el tipo de cambio competitivo y la capacidad ociosa impulsaron la recuperación 2002-2007 y qué rol jugó el 'viento de cola' externo.",
+        "model": "Porque un dólar alto mejora la rentabilidad exportadora del agro y también la de la industria sustitutiva/exportadora, abaratando costos en moneda extranjera; esa coincidencia de intereses es frágil cuando aparece la inflación o se aprecia el tipo de cambio real."
+      }
+    ],
+    "takeaway": "Salir del pozo con dólar alto y fábricas a media máquina es un rebote poderoso; no es, solo, un modelo de largo plazo."
+  },
+  "kirchnerismo": {
+    "id": "kirchnerismo",
+    "hook": "Gerchunoff y Llach cierran el libro con un veredicto nítido: el kirchnerismo completó un arco entero de ilusión y desencanto —el tercero de la democracia— sin explotar como 1989 o 2001, pero dejando desequilibrios de sobra.",
+    "explanation": [
+      "El <b>ciclo kirchnerista (2003-2015)</b> arranca sobre la posconvertibilidad: crecimiento alto, caída del desempleo, superávits y un relato de 'modelo de acumulación con inclusión social' y tipo de cambio competitivo. El prólogo del libro lo llama la nostalgia de la Argentina de posguerra —pleno empleo y salarios altos— pero en una economía más abierta y con soja cara. Mientras hubo holgura, el menú fue popular: campo e industria podían ganar a la vez con un dólar alto.",
+      "Las grietas aparecen cuando se pide lo que la macro no puede dar para siempre: 'tasas chinas' y salarios reales en alza cerca del pleno empleo. Suben inflación y apreciación real; se manipula el IPC (desde 2007); estalla el conflicto de la <b>resolución 125</b> por retenciones móviles a la soja (2008). El expansionismo fiscal y monetario se sostiene con reservas, retenciones y, más tarde, con el BCRA y recursos de la seguridad social. Tras la reelección de 2011, la corrida lleva al <b>cepo cambiario</b> y al dólar blue: vuelve el control de cambios clásico de la Argentina post-1930 y, con él, el stop-go.",
+      "El desencanto, en este relato, no es una sola fecha sino un agotamiento: desequilibrios fiscal, externo y de precios relativos; stocks de reservas y energía que se consumen; sintonía fina anunciada y postergada. El libro insiste en que no hubo hiper ni corralito final, pero sí un tercer péndulo de la democracia: de la reactivación en la que todos ganan a una política que elige una y otra vez el atajo de corto plazo. Leer el kirchnerismo con esta lente es ver la misma gramática de ilusión y desencanto con otro vestuario."
+    ],
+    "example": {
+      "title": "Del superávit gemelo al cepo",
+      "body": "En 2004 el gobierno se jacta de superávit fiscal y comercial con dólar alto. En 2011, con boom de consumo preelectoral, el Central vende reservas para calmar el dólar mientras la gente saca depósitos en moneda extranjera. Después de las elecciones llegan las restricciones para comprar dólares: nace el cepo. El mismo instrumento que en los 30 y en la ISI —el control de cambios— reaparece cuando la restricción externa vuelve al centro. No es un detalle técnico: es el final del menú fácil de la posconvertibilidad."
+    },
+    "check": [
+      {
+        "type": "mcq",
+        "q": "¿Cómo caracterizan Gerchunoff y Llach el cierre del ciclo kirchnerista?",
+        "options": [
+          "Como un default idéntico al de 2001 con cinco presidentes en una semana",
+          "Como el regreso exitoso y permanente al patrón oro",
+          "Como un arco completo de ilusión y desencanto que termina en agotamiento, cepo y stop-go, sin una explosión tipo 1989 o 2001",
+          "Como la adopción plena de metas de inflación al estilo chileno desde 2003"
+        ],
+        "answer": 2,
+        "explain": "El libro habla de un tercer ciclo de ilusión y desencanto de la democracia, que se agota con desequilibrios y cepo pero sin el estallido de la hiper o del 2001."
+      },
+      {
+        "type": "open",
+        "q": "Señalá un elemento de la 'ilusión' inicial y uno del 'desencanto' final del ciclo 2003-2015.",
+        "criterion": "Podés trazar el arco de ilusión y desencanto del kirchnerismo: recuperación inicial, tensiones (inflación, apreciación, 125) y agotamiento con cepo y restricción externa.",
+        "model": "Ilusión: crecimiento alto con tipo de cambio competitivo, superávits y mejora social post-crisis. Desencanto: inflación, apreciación, manipulación del IPC, conflicto de la 125, cepo y vuelta del stop-go por restricción de divisas."
+      }
+    ],
+    "takeaway": "El tercer péndulo democrático: la reactivación no puede ser un estado permanente, aunque se la administre con cepo y no con corralito."
   }
 };
