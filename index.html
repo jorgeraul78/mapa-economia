@@ -90,25 +90,62 @@ header{
 }
 
 /* ---------- graph ---------- */
-#stage{position:absolute; inset:0; z-index:5}
-#graph{width:100%; height:100%; display:block; cursor:grab}
+#stage{position:absolute; inset:0; z-index:5; touch-action:none; overflow:hidden}
+#graph{width:100%; height:100%; display:block; cursor:grab; touch-action:none}
 #graph.grabbing{cursor:grabbing}
-.link{stroke:var(--line); fill:none}
-.link.soft{stroke-dasharray:2 4}
-.node circle{stroke:var(--ink); stroke-width:1.5px; cursor:pointer; transition:stroke .15s, opacity .15s}
-.node text.label{
-  font-family:"Archivo",sans-serif; font-size:10.5px; fill:var(--paper);
-  paint-order:stroke; stroke:var(--ink); stroke-width:3px; stroke-linejoin:round;
-  pointer-events:none; opacity:0; transition:opacity .15s;
+#graph.panning{cursor:grabbing}
+.link{stroke:var(--line); fill:none; stroke-linecap:round; transition:stroke .15s, opacity .15s, stroke-width .15s}
+.link.soft{stroke-dasharray:3 5; opacity:.75}
+.link.hot{stroke:var(--gold)!important; opacity:1!important; stroke-width:1.8px}
+.node{cursor:grab}
+.node:active{cursor:grabbing}
+.node circle{
+  stroke:var(--ink); stroke-width:1.5px; cursor:pointer;
+  transition:stroke .15s, stroke-width .15s, opacity .15s, filter .15s;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));
 }
-.node.show-label text.label{opacity:1}
-.node.dim{opacity:.12}
-.node.route-on circle{stroke:var(--accent); stroke-width:2.4px}
+.node:hover circle, .node.selected circle{
+  stroke:var(--accent); stroke-width:2.6px;
+  filter:drop-shadow(0 0 8px rgba(230,201,104,.45));
+}
+.node text.label{
+  font-family:"Archivo",sans-serif; font-size:11px; fill:var(--paper);
+  paint-order:stroke; stroke:var(--ink); stroke-width:3.5px; stroke-linejoin:round;
+  pointer-events:none; opacity:0; transition:opacity .12s;
+}
+.node.show-label text.label, .node.selected text.label, .labels-on text.label{opacity:1}
+.node.dim{opacity:.1}
+.node.route-on circle{stroke:var(--accent); stroke-width:2.6px}
+.node.pinned circle{stroke-dasharray:2 2; stroke:var(--gold)}
 .hint{
-  position:absolute; left:50%; bottom:20px; transform:translateX(-50%); z-index:8;
-  font-size:12px; color:var(--paper-faint); background:rgba(10,20,24,.72);
-  border:1px solid var(--line-soft); padding:6px 14px; border-radius:20px;
-  pointer-events:none; text-align:center; transition:opacity .3s;
+  position:absolute; left:50%; bottom:22px; transform:translateX(-50%); z-index:8;
+  font-size:12px; color:var(--paper-faint); background:rgba(10,20,24,.78);
+  border:1px solid var(--line-soft); padding:7px 16px; border-radius:20px;
+  pointer-events:none; text-align:center; transition:opacity .3s; max-width:min(92vw,520px);
+  line-height:1.35;
+}
+/* floating graph controls */
+.gctrl{
+  position:absolute; right:18px; bottom:22px; z-index:12;
+  display:flex; flex-direction:column; gap:6px;
+  transition:right .32s cubic-bezier(.2,.7,.2,1);
+}
+body.panel-open .gctrl{right:min(398px, calc(88vw + 18px))}
+.gctrl button{
+  width:38px; height:38px; border-radius:10px; border:1px solid var(--line);
+  background:rgba(18,42,48,.92); color:var(--paper); cursor:pointer;
+  font-size:18px; line-height:1; display:grid; place-items:center;
+  backdrop-filter:blur(8px); transition:background .12s, border-color .12s, color .12s;
+  font-family:"Space Mono",monospace; padding:0;
+}
+.gctrl button:hover{background:var(--ink-2); border-color:var(--gold); color:var(--gold)}
+.gctrl button:active{transform:scale(.96)}
+.gctrl button.sm{font-size:13px; letter-spacing:-.02em}
+.gctrl .sep{height:1px; background:var(--line-soft); margin:2px 6px}
+@media (max-width:720px){
+  .gctrl{right:12px; bottom:16px}
+  body.panel-open .gctrl{right:12px; bottom:calc(74vh + 12px)}
+  .gctrl button{width:34px; height:34px; font-size:16px}
 }
 
 /* ---------- detail / route panel ---------- */
@@ -305,8 +342,16 @@ header{
 <div class="legend" id="legend"></div>
 
 <div id="stage">
-  <svg id="graph"></svg>
-  <div class="hint" id="hint">Tocá un concepto para leer su lección y marcarlo como dominado · los que tienen lección están resaltados</div>
+  <svg id="graph" role="img" aria-label="Grafo de prerrequisitos de economía"></svg>
+  <div class="hint" id="hint">Arrastrá el fondo para mover · rueda o pellizco para zoom · arrastrá un nodo · doble clic para encuadrar · tocá un concepto para la lección</div>
+  <div class="gctrl" id="gctrl" aria-label="Controles del grafo">
+    <button type="button" id="zIn" title="Acercar">+</button>
+    <button type="button" id="zOut" title="Alejar">−</button>
+    <div class="sep"></div>
+    <button type="button" id="zFit" class="sm" title="Encuadrar todo">⤢</button>
+    <button type="button" id="zLabels" class="sm" title="Mostrar/ocultar etiquetas">Aa</button>
+    <button type="button" id="zRelayout" class="sm" title="Reordenar el grafo">↻</button>
+  </div>
 </div>
 
 <aside id="panel" aria-live="polite"></aside>
@@ -367,73 +412,219 @@ tk.append("span").text("cimas");
 
 // ---------- svg / sim ----------
 const svg = d3.select("#graph");
-let W=0,H=0;
-const gZoom = svg.append("g");
-const gLink = gZoom.append("g");
-const gNode = gZoom.append("g");
+let W=0, H=0;
+const gZoom = svg.append("g").attr("class","viewport");
+// subtle backdrop grid for depth (moves with pan/zoom)
+const gBg = gZoom.append("g").attr("class","bg").style("pointer-events","none");
+const gLink = gZoom.append("g").attr("class","links");
+const gNode = gZoom.append("g").attr("class","nodes");
 
-const radius = d=> 5 + 2.3*Math.sqrt(d.unlocks);
-const tierY = t => 0.5 + (5 - t)/4 * 0; // placeholder, set in layout()
+const radius = d => 5.5 + 2.4*Math.sqrt(d.unlocks || 0);
+const subjectIndex = Object.fromEntries(SUBJECTS.map((s,i)=>[s[0], i]));
+const nSubj = SUBJECTS.length;
+let labelsForced = false;
+const pinned = new Set();
+
+// spread by subject (x) and tier (y) — closer to a readable map
+function subjectX(d){
+  const i = subjectIndex[d.subject] ?? 0;
+  const pad = Math.min(90, W*0.08);
+  return pad + (i + 0.5) / nSubj * (W - 2*pad);
+}
+function tierY(d){
+  const padTop = 96, padBot = 72;
+  // tier 1 = bottom-ish fundamentals, tier 5 = top peaks (same as legend)
+  return padTop + (5 - d.tier) / 4 * (H - padTop - padBot);
+}
 
 const sim = d3.forceSimulation(nodes)
-  .force("link", d3.forceLink(links).id(d=>d.id).distance(l=> l.kind==="hard"?58:74).strength(0.35))
-  .force("charge", d3.forceManyBody().strength(-190))
-  .force("collide", d3.forceCollide().radius(d=>radius(d)+7))
-  .force("x", d3.forceX().strength(0.04))
-  .force("y", d3.forceY().strength(0.5));
+  .force("link", d3.forceLink(links).id(d=>d.id)
+    .distance(l => l.kind==="hard" ? 72 : 92)
+    .strength(l => l.kind==="hard" ? 0.42 : 0.22))
+  .force("charge", d3.forceManyBody().strength(-320).distanceMax(420))
+  .force("collide", d3.forceCollide().radius(d=>radius(d)+12).iterations(2))
+  .force("x", d3.forceX(subjectX).strength(0.09))
+  .force("y", d3.forceY(tierY).strength(0.55))
+  .alphaDecay(0.028)
+  .velocityDecay(0.35);
 
 const link = gLink.selectAll("path").data(links).join("path")
   .attr("class", d=>"link"+(d.kind==="soft"?" soft":""))
-  .attr("stroke-width", d=>d.kind==="hard"?1.1:0.9);
+  .attr("stroke-width", d=>d.kind==="hard"?1.15:0.95);
 
-const node = gNode.selectAll("g").data(nodes).join("g")
-  .attr("class","node").attr("tabindex",0)
-  .call(d3.drag()
-    .on("start",(e,d)=>{if(!e.active)sim.alphaTarget(.25).restart(); d.fx=d.x; d.fy=d.y;})
-    .on("drag",(e,d)=>{d.fx=e.x; d.fy=e.y;})
-    .on("end",(e,d)=>{if(!e.active)sim.alphaTarget(0); d.fx=null; d.fy=null;}));
+const node = gNode.selectAll("g").data(nodes, d=>d.id).join("g")
+  .attr("class","node")
+  .attr("tabindex",0)
+  .attr("role","button")
+  .attr("aria-label", d=>d.title);
 
-node.append("circle").attr("r",radius).attr("fill",d=>subjColor[d.subject]);
-node.append("text").attr("x",d=>radius(d)+4).attr("dy","0.32em").attr("class","label").text(d=>d.title);
+// drag nodes — filter so it doesn't fight pan; pin if alt/shift held on release
+const nodeDrag = d3.drag()
+  .filter(e => !e.ctrlKey && !e.button)
+  .on("start", (e,d)=>{
+    if(!e.active) sim.alphaTarget(0.28).restart();
+    d.fx = d.x; d.fy = d.y;
+    d3.select(e.sourceEvent.target.closest(".node")).classed("selected", true);
+  })
+  .on("drag", (e,d)=>{
+    d.fx = e.x; d.fy = e.y;
+  })
+  .on("end", (e,d)=>{
+    if(!e.active) sim.alphaTarget(0);
+    const keep = e.sourceEvent && (e.sourceEvent.altKey || e.sourceEvent.shiftKey);
+    if(keep){
+      pinned.add(d.id);
+      d3.select(e.sourceEvent.target.closest(".node")).classed("pinned", true);
+    } else if(!pinned.has(d.id)){
+      d.fx = null; d.fy = null;
+    }
+    d3.selectAll(".node").classed("selected", false);
+  });
+node.call(nodeDrag);
+
+node.append("circle").attr("r", radius).attr("fill", d=>subjColor[d.subject]);
+node.append("text").attr("x", d=>radius(d)+5).attr("dy","0.32em").attr("class","label").text(d=>d.title);
 node.append("text").attr("class","badge").attr("dy","0.34em").text("✓");
 
-node.on("mouseenter",(e,d)=>{ if(mode==="explore") hover(d); })
-    .on("mouseleave",()=>{ if(mode==="explore") clearHover(); })
-    .on("click",(e,d)=>{ e.stopPropagation(); mode==="route"?showRoute(d):openDetail(d); })
-    .on("keydown",(e,d)=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault(); mode==="route"?showRoute(d):openDetail(d);} });
+node.on("mouseenter",(e,d)=>{ if(mode==="explore" && !routeSet) hover(d); })
+    .on("mouseleave",()=>{ if(mode==="explore" && !routeSet) clearHover(); })
+    .on("click",(e,d)=>{
+      e.stopPropagation();
+      // ignore click after a real drag
+      if(e.defaultPrevented) return;
+      mode==="route" ? showRoute(d) : openDetail(d);
+    })
+    .on("keydown",(e,d)=>{
+      if(e.key==="Enter"||e.key===" "){ e.preventDefault(); mode==="route"?showRoute(d):openDetail(d); }
+    });
 
-svg.on("click",()=>{ if(mode==="explore"){clearHover(); closePanel();} });
-
-sim.on("tick",()=>{
-  link.attr("d",l=>{
-    const dx=l.target.x-l.source.x, dy=l.target.y-l.source.y;
-    return `M${l.source.x},${l.source.y}L${l.target.x},${l.target.y}`;
-  });
-  node.attr("transform",d=>`translate(${d.x},${d.y})`);
+// click empty space closes panel / clears highlight
+svg.on("click", (e)=>{
+  if(e.target !== svg.node() && e.target.tagName !== "svg") return;
+  if(mode==="explore"){ clearHover(); closePanel(); document.body.classList.remove("panel-open"); }
 });
 
-// zoom/pan
-const zoom = d3.zoom().scaleExtent([0.4,3])
-  .filter(e=> !(e.target.closest && e.target.closest(".node")))
-  .on("zoom",e=>gZoom.attr("transform",e.transform));
-svg.call(zoom).on("dblclick.zoom",null);
-svg.on("mousedown",()=>svg.classed("grabbing",true)).on("mouseup",()=>svg.classed("grabbing",false));
+sim.on("tick", ()=>{
+  link.attr("d", l=>{
+    // slight curve for readability
+    const x1=l.source.x, y1=l.source.y, x2=l.target.x, y2=l.target.y;
+    const dx=x2-x1, dy=y2-y1;
+    const dr = Math.hypot(dx,dy);
+    if(dr < 1) return `M${x1},${y1}L${x2},${y2}`;
+    const k = l.kind==="soft" ? 0.12 : 0.06;
+    const mx = (x1+x2)/2 - dy*k, my = (y1+y2)/2 + dx*k;
+    return `M${x1},${y1}Q${mx},${my} ${x2},${y2}`;
+  });
+  node.attr("transform", d=>`translate(${d.x},${d.y})`);
+});
+
+// ---------- zoom / pan (Marble-style: drag empty, scroll zoom, dblclick fit) ----------
+const zoom = d3.zoom()
+  .scaleExtent([0.12, 4.5])
+  .filter(e=>{
+    // always allow wheel / pinch
+    if(e.type === "wheel" || e.type === "dblclick") return true;
+    // ignore right-clicks for context menu
+    if(e.button && e.button !== 0) return false;
+    // don't pan when starting on a node (node has its own drag)
+    const t = e.target;
+    if(t && t.closest && t.closest(".node")) return false;
+    return true;
+  })
+  .on("start", ()=> svg.classed("panning", true))
+  .on("end", ()=> svg.classed("panning", false))
+  .on("zoom", e=>{
+    gZoom.attr("transform", e.transform);
+  });
+
+svg.call(zoom);
+// double-click empty → fit; disable default zoom-in on dblclick
+svg.on("dblclick.zoom", null);
+svg.on("dblclick", e=>{
+  if(e.target.closest && e.target.closest(".node")) return;
+  fitView();
+});
+
+function currentTransform(){ return d3.zoomTransform(svg.node()); }
+
+function zoomBy(factor){
+  svg.transition().duration(220).call(zoom.scaleBy, factor);
+}
+function fitView(duration=700){
+  if(!nodes.length || !W || !H) return;
+  // use current positions; if sim still hot, tick a few
+  let minX=Infinity, maxX=-Infinity, minY=Infinity, maxY=-Infinity;
+  nodes.forEach(d=>{
+    if(d.x==null) return;
+    minX=Math.min(minX,d.x); maxX=Math.max(maxX,d.x);
+    minY=Math.min(minY,d.y); maxY=Math.max(maxY,d.y);
+  });
+  if(!isFinite(minX)) return;
+  const pad = 80;
+  const bw = Math.max(maxX - minX, 40);
+  const bh = Math.max(maxY - minY, 40);
+  // leave room for open panel on desktop
+  const panelW = (panel && panel.classList.contains("open") && W>720) ? Math.min(380, W*0.4) : 0;
+  const viewW = W - panelW;
+  const k = Math.min(viewW/(bw+pad*2), H/(bh+pad*2), 1.8);
+  const cx = (minX+maxX)/2, cy = (minY+maxY)/2;
+  const t = d3.zoomIdentity
+    .translate(viewW/2 - cx*k, H/2 - cy*k)
+    .scale(k);
+  svg.transition().duration(duration).ease(d3.easeCubicOut).call(zoom.transform, t);
+}
 
 function layout(){
-  const st=document.getElementById("stage").getBoundingClientRect();
-  W=st.width; H=st.height;
-  svg.attr("viewBox",`0 0 ${W} ${H}`);
-  const padTop=104, padBot=64;
-  sim.force("x").x(W/2);
-  sim.force("y").y(d=> padTop + (5-d.tier)/4 * (H-padTop-padBot));
-  sim.alpha(0.9).restart();
+  const st = document.getElementById("stage").getBoundingClientRect();
+  W = st.width; H = st.height;
+  svg.attr("viewBox", `0 0 ${W} ${H}`).attr("width", W).attr("height", H);
+  sim.force("x").x(subjectX);
+  sim.force("y").y(tierY);
+  sim.alpha(0.85).restart();
 }
-window.addEventListener("resize",layout);
-// set header offset var for legend
+function relayout(){
+  pinned.clear();
+  nodes.forEach(d=>{ d.fx=null; d.fy=null; });
+  node.classed("pinned", false);
+  layout();
+  // after a beat, fit
+  setTimeout(()=>fitView(600), 650);
+}
+
+// controls
+document.getElementById("zIn").onclick = ()=> zoomBy(1.28);
+document.getElementById("zOut").onclick = ()=> zoomBy(1/1.28);
+document.getElementById("zFit").onclick = ()=> fitView();
+document.getElementById("zRelayout").onclick = ()=> relayout();
+document.getElementById("zLabels").onclick = ()=>{
+  labelsForced = !labelsForced;
+  gNode.classed("labels-on", labelsForced);
+  document.getElementById("zLabels").style.color = labelsForced ? "var(--gold)" : "";
+};
+
+window.addEventListener("resize", ()=>{
+  document.documentElement.style.setProperty("--hdr", (document.querySelector("header").offsetHeight)+"px");
+  layout();
+});
 document.documentElement.style.setProperty("--hdr", (document.querySelector("header").offsetHeight)+"px");
 layout();
-// reduced motion: settle fast
-if(matchMedia("(prefers-reduced-motion:reduce)").matches){ for(let i=0;i<300;i++)sim.tick(); sim.stop(); layout(); sim.alpha(0).stop(); }
+
+// settle then auto-fit so the whole map is visible on load
+if(matchMedia("(prefers-reduced-motion:reduce)").matches){
+  for(let i=0;i<280;i++) sim.tick();
+  sim.alpha(0);
+  fitView(0);
+} else {
+  // run sim a bit off-screen then fit
+  const warm = setInterval(()=>{
+    if(sim.alpha() < 0.08){
+      clearInterval(warm);
+      fitView(800);
+    }
+  }, 120);
+  // safety fit
+  setTimeout(()=>fitView(800), 2200);
+}
 
 // ---------- hover ----------
 function neighbors(id){
@@ -444,14 +635,14 @@ function neighbors(id){
 }
 function hover(d){
   const nb=neighbors(d.id);
-  node.classed("dim",n=>!nb.has(n.id)).classed("show-label",n=>nb.has(n.id));
-  link.style("stroke",l=> (l.source.id===d.id||l.target.id===d.id)?"var(--gold)":null)
-      .style("opacity",l=> (l.source.id===d.id||l.target.id===d.id)?1:0.12);
+  node.classed("dim",n=>!nb.has(n.id)).classed("show-label",n=>nb.has(n.id) || labelsForced);
+  link.classed("hot", l => l.source.id===d.id || l.target.id===d.id)
+      .style("opacity", l => (l.source.id===d.id||l.target.id===d.id) ? 1 : 0.08);
 }
 function clearHover(){
   if(routeSet) return; // keep route highlight
-  node.classed("dim",false).classed("show-label",false);
-  link.style("stroke",null).style("opacity",null);
+  node.classed("dim",false).classed("show-label", labelsForced);
+  link.classed("hot", false).style("opacity", null).style("stroke", null);
 }
 
 // ---------- filter ----------
@@ -478,13 +669,13 @@ function setMode(m){
   mode=m; bE.classList.toggle("on",m==="explore"); bR.classList.toggle("on",m==="route");
   routeSet=null; clearRoute(); closePanel();
   document.getElementById("hint").textContent = m==="route"
-    ? "Tocá un concepto destino y te armo la secuencia de estudio para llegar"
-    : "Tocá un concepto para leer su lección y marcarlo como dominado";
+    ? "Tocá un concepto destino · te armo la ruta de prerrequisitos · arrastrá el fondo para moverte"
+    : "Arrastrá para mover · zoom con rueda · tocá un concepto para la lección · doble clic vacía = encuadrar";
 }
 
 // ---------- detail panel ----------
 const panel=document.getElementById("panel");
-function closePanel(){ panel.classList.remove("open"); }
+function closePanel(){ panel.classList.remove("open"); document.body.classList.remove("panel-open"); node.classed("selected", false); }
 function relRow(t, kind, reason){
   const c=subjColor[t.subject];
   const label = kind==="hard" ? "imprescindible" : (kind==="soft" ? "recomendado" : kind);
@@ -515,7 +706,7 @@ function openDetail(d){
     <div class="p-sec"><h4>Te habilita (${unl.length})</h4>
       ${unl.length?unl.map(x=>relRow(byId[x.topic], x.type, x.reason)).join(""):'<p class="empty">Es una cima: no es prerrequisito de nada más.</p>'}</div>
   `;
-  panel.classList.add("open");
+  panel.classList.add("open"); document.body.classList.add("panel-open");
   panel.querySelector(".pclose").onclick=closePanel;
   const bl=panel.querySelector("#btnLesson"); if(bl) bl.onclick=()=>openLesson(d);
   panel.querySelectorAll(".rel").forEach(r=>r.onclick=()=>{
@@ -551,7 +742,7 @@ function openLesson(d){
       <button class="mark-done ${mastered.has(d.id)?'is-done':'locked'}" id="markDone">${
         mastered.has(d.id)?'✓ Dominado · clic para desmarcar':(mcqs.length?'Respondé bien el chequeo para marcarlo':'Marcar como dominado')}</button></div>
     <p class="les-take">${L.takeaway}</p>`;
-  panel.classList.add("open");
+  panel.classList.add("open"); document.body.classList.add("panel-open");
   panel.querySelector(".pclose").onclick=closePanel;
   panel.querySelector(".les-back").onclick=()=>openDetail(d);
 
@@ -601,9 +792,13 @@ let _toastT;
 function toast(msg){ const el=document.getElementById("toast"); el.textContent=msg;
   el.classList.add("show"); clearTimeout(_toastT); _toastT=setTimeout(()=>el.classList.remove("show"),1900); }
 function focusNode(d){
-  const t=d3.zoomTransform(svg.node());
-  const tx=W/2 - d.x*t.k, ty=H/2 - d.y*t.k;
-  svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity.translate(tx,ty).scale(Math.max(t.k,1.1)));
+  if(d.x==null || d.y==null) return;
+  const panelW = (panel && panel.classList.contains("open") && W>720) ? Math.min(380, W*0.4) : 0;
+  const viewW = W - panelW;
+  const k = Math.max(currentTransform().k, 1.15);
+  const t = d3.zoomIdentity.translate(viewW/2 - d.x*k, H/2 - d.y*k).scale(k);
+  svg.transition().duration(480).ease(d3.easeCubicOut).call(zoom.transform, t);
+  node.classed("selected", n=>n.id===d.id);
 }
 
 // ---------- route mode: topological prereq path ----------
@@ -663,7 +858,7 @@ function showRoute(target){
     <p class="route-lead"><b>${order.length} conceptos</b> en orden sugerido. Cada uno solo aparece después de todo lo que necesita antes.</p>
     ${steps}
   `;
-  panel.classList.add("open");
+  panel.classList.add("open"); document.body.classList.add("panel-open");
   panel.querySelector(".pclose").onclick=()=>{closePanel(); routeSet=null; clearRoute();};
   panel.querySelectorAll(".step").forEach(s=>s.onclick=()=>{ const t=byId[s.dataset.goto]; focusNode(t); });
   focusNode(target);
